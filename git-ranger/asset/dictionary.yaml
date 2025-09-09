@@ -1,0 +1,38 @@
+app:
+  synopsis: A helpful ranger tending your forest of Git worktrees.
+
+commands:
+  seed:
+    synopsis: Set up your project's forest, ready to plant new worktrees.
+    args:
+      dir: Target directory (defaults to cwd).
+      src: Remote URL or local path to clone from initially.
+      dry-run: Trial run does not apply any changes.
+
+  plant:
+    synopsis: Plant a new worktree from a branch.
+    args:
+      name: Branch name/identifier.
+      from: Source branch (defaults to configured master branch).
+      dry-run: Trial run does not apply any changes.
+
+  list:
+    synopsis: List all worktrees in the current forest.
+    args:
+      detailed: Show more details for each worktree.
+
+  prune:
+    synopsis: |
+      Remove stale or merged worktrees.
+        Important: In any case, the bare repo clone created by the `seed` command
+                   is always ignored during this operation.
+    args:
+      dry-run: Trial run does not apply any changes.
+      all: Graceful deforestation. All clean trees are removed.
+      force: Used with --all flag. Indiscriminate clearcutting of all worktrees.
+
+  check:
+    synopsis: Check the health of all worktrees.
+
+  visit:
+    synopsis: Navigate to an existing worktree directory.
