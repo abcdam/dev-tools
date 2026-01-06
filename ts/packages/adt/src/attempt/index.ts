@@ -1,2 +1,2 @@
 export * from "./attempt";
-export * from "./result";
+export * from "./errors";
