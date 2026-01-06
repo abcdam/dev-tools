@@ -1,0 +1,64 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig.json",
+  "compilerOptions": {
+    //
+    // ENVIRONMENT
+    // ---------------------------------------------------------
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    //
+    // MODULE RESOLUTION
+    // ---------------------------------------------------------
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
+
+    //
+    // TYPES
+    // ---------------------------------------------------------
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    //
+    // CLEAN CODE
+    // ---------------------------------------------------------
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+
+    //
+    // EMISSION
+    // ---------------------------------------------------------
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "newLine": "lf",
+    "verbatimModuleSyntax": true,
+    "isolatedDeclarations": true,
+    "erasableSyntaxOnly": true,
+
+    //
+    // PERFORMANCE
+    // ---------------------------------------------------------
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "composite": false,
+
+    //
+    // REPORTING
+    // ---------------------------------------------------------
+    "pretty": true,
+    "noErrorTruncation": true
+  },
+  "exclude": ["node_modules", "dist"]
+}
