@@ -1,0 +1,54 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
+  "type": "module",
+  "name": "@abcd/adt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./result": {
+      "import": {
+        "types": "./dist/result/index.d.ts",
+        "default": "./dist/result/index.js"
+      },
+      "require": {
+        "types": "./dist/result/index.d.ts",
+        "default": "./dist/result/index.cjs"
+      }
+    },
+    "./result/*": {
+      "import": {
+        "types": "./dist/result/*.d.ts",
+        "default": "./dist/result/*.js"
+      },
+      "require": {
+        "types": "./dist/result/*.d.ts",
+        "default": "./dist/result/*.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "lint": "biome check src"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.20.0"
+}
