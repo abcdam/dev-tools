@@ -37,6 +37,46 @@
         "types": "./dist/result/*.d.ts",
         "default": "./dist/result/*.cjs"
       }
+    },
+    "./option": {
+      "import": {
+        "types": "./dist/option/index.d.ts",
+        "default": "./dist/option/index.js"
+      },
+      "require": {
+        "types": "./dist/option/index.d.ts",
+        "default": "./dist/option/index.cjs"
+      }
+    },
+    "./option/*": {
+      "import": {
+        "types": "./dist/option/*.d.ts",
+        "default": "./dist/option/*.js"
+      },
+      "require": {
+        "types": "./dist/option/*.d.ts",
+        "default": "./dist/option/*.cjs"
+      }
+    },
+    "./memoize": {
+      "import": {
+        "types": "./dist/memoize/index.d.ts",
+        "default": "./dist/memoize/index.js"
+      },
+      "require": {
+        "types": "./dist/memoize/index.d.ts",
+        "default": "./dist/memoize/index.cjs"
+      }
+    },
+    "./memoize/*": {
+      "import": {
+        "types": "./dist/memoize/*.d.ts",
+        "default": "./dist/memoize/*.js"
+      },
+      "require": {
+        "types": "./dist/memoize/*.d.ts",
+        "default": "./dist/memoize/*.cjs"
+      }
     }
   },
   "scripts": {

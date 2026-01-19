@@ -6,7 +6,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@result/*": ["src/result/*"]
+      "@result/*": ["src/result/*"],
+      "@option/*": ["src/option/*"],
+      "@internal/*": ["src/internal/*"]
     }
   },
   "include": ["src/**/*"]

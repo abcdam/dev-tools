@@ -9,7 +9,3 @@ export type Err<E> = {
 };
 
 export type Result<T, E> = Ok<T> | Err<E>;
-
-export type ResultAsync<T, E> = Promise<Result<T, E>>;
-
-export type ResultAwaitable<T, E> = ResultAsync<T, E> | Result<T, E>;
