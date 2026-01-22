@@ -77,6 +77,26 @@
         "types": "./dist/memoize/*.d.ts",
         "default": "./dist/memoize/*.cjs"
       }
+    },
+    "./match": {
+      "import": {
+        "types": "./dist/match/index.d.ts",
+        "default": "./dist/match/index.js"
+      },
+      "require": {
+        "types": "./dist/match/index.d.ts",
+        "default": "./dist/match/index.cjs"
+      }
+    },
+    "./match/*": {
+      "import": {
+        "types": "./dist/match/*.d.ts",
+        "default": "./dist/match/*.js"
+      },
+      "require": {
+        "types": "./dist/match/*.d.ts",
+        "default": "./dist/match/*.cjs"
+      }
     }
   },
   "scripts": {

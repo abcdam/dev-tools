@@ -1,3 +1,3 @@
-export type Some<T> = { some: true; value: T };
-export type None = { some: false };
+export type Some<T> = { readonly some: true; readonly value: T };
+export type None = { readonly some: false };
 export type Option<T> = Some<T> | None;

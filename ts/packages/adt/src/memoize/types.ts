@@ -1,8 +1,6 @@
 import type { Option } from "@option/types";
 import type { Result } from "@result/types";
 
-
-
 /**
  * A policy is an entity that manages the "Metadata" associated with an instance of a cacheable Result.
  */

@@ -1,14 +1,13 @@
-import type { ResultAwaitable } from "@result/types";
+import type { Awaitable } from "@internal/types";
+import type { Result } from "@result/types";
 import { matcherSafe } from "./matchSafe";
 import type { MatcherAsyncFn, PanickyHandlers } from "./types";
 
 export const matchAsyncSafe = async <T, E, RO, RE, RP>(
-  result: ResultAwaitable<T, E>,
+  result: Awaitable<Result<T, E>>,
   handle: PanickyHandlers<T, E, RO, RE, RP>,
 ): Promise<RO | RE | RP> =>
-  Promise.resolve(result)
-    .then(matcherSafe(handle))
-    .catch((e) => handle.Panic(e));
+  Promise.resolve(result).then(matcherSafe(handle)).catch(handle.Panic);
 
 export const matcherAsyncSafe =
   <T, E, RO, RE, RP>(

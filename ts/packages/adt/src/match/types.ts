@@ -1,4 +1,5 @@
-import type { Result, ResultAwaitable } from "@result/types";
+import type { Awaitable } from "@internal/types";
+import type { Result } from "@result/types";
 
 export interface Handlers<T, E, RO, RE = RO> {
   Ok: (value: T) => RO;
@@ -10,7 +11,7 @@ export interface PanickyHandlers<T, E, RO, RE = RO, RP = RO | RE>
   Panic: (cause: unknown) => RP;
 }
 
-export type MatcherFn<T, E, R> = (value: Result<T, E>) => R;
+export type MatcherFn<T, E, R> = (result: Result<T, E>) => R;
 export type MatcherAsyncFn<T, E, R> = (
-  value: ResultAwaitable<T, E>,
+  result: Awaitable<Result<T, E>>,
 ) => Promise<R>;

@@ -53,13 +53,13 @@ export function mapErr<T, E, F>(
 // biome-ignore lint/suspicious/noExplicitAny: <mapper irrelevant for error case>
 export function andThen<E>(input: Err<E>, mapFn: (t: any) => any): Err<E>;
 
-// Ok case: Ok<T> -> Result<U, E>
+// Ok case: Ok<T> -> Result<U, F>
 export function andThen<T, U, F>(
   input: Ok<T>,
   mapFn: (t: T) => Result<U, F>,
 ): Result<U, F>;
 
-// General case: Result<T, E> -> Result<U, E>
+// General case: Result<T, E> -> Result<U, E | F>
 export function andThen<T, E, U, F>(
   input: Result<T, E>,
   mapFn: (t: T) => Result<U, F>,

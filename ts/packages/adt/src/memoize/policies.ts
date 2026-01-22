@@ -13,7 +13,7 @@ export const onlyOkPolicy = <T, E>(): CachePolicy<T, E> => ({
 });
 
 export const ttlPolicy = <T, E>(ttlMs: number): CachePolicy<T, E, number> => ({
-  updateMetadata: (_result) => some(Date.now()),
+  updateMetadata: (_) => some(Date.now()),
   isFresh: (timestamp) => Date.now() - timestamp < ttlMs,
 });
 
