@@ -8,8 +8,8 @@ export const matchSafe = <T, E, RO, RE, RP>(
 ): RO | RE | RP => {
   try {
     return match(result, handle);
-  } catch (e) {
-    return handle.Panic(e);
+  } catch (cause) {
+    return handle.Panic(cause);
   }
 };
 

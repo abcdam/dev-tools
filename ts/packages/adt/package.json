@@ -97,6 +97,26 @@
         "types": "./dist/match/*.d.ts",
         "default": "./dist/match/*.cjs"
       }
+    },
+    "./attempt": {
+      "import": {
+        "types": "./dist/attempt/index.d.ts",
+        "default": "./dist/attempt/index.js"
+      },
+      "require": {
+        "types": "./dist/attempt/index.d.ts",
+        "default": "./dist/attempt/index.cjs"
+      }
+    },
+    "./attempt/*": {
+      "import": {
+        "types": "./dist/attempt/*.d.ts",
+        "default": "./dist/attempt/*.js"
+      },
+      "require": {
+        "types": "./dist/attempt/*.d.ts",
+        "default": "./dist/attempt/*.cjs"
+      }
     }
   },
   "scripts": {

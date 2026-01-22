@@ -7,6 +7,7 @@ export default defineConfig((options) => ({
     "src/memoize/**/*.ts",
     "src/option/**/*.ts",
     "src/match/**/*.ts",
+    "src/attempt/**/*.ts",
   ],
   format: ["cjs", "esm"],
   dts: true,

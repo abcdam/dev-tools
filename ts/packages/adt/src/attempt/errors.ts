@@ -1,12 +1,12 @@
 export interface ISafeExecutionError extends Error {
-  name: "SafeExecutionError";
+  readonly name: "SafeExecutionError";
   readonly kind: "SafeExecution";
   readonly originalError: unknown;
   readonly mapperError: unknown;
 }
 
 export class SafeExecutionError extends Error implements ISafeExecutionError {
-  public override readonly name = "SafeExecutionError"; // Explicit public property
+  public override readonly name = "SafeExecutionError"; // Explicit public property (satisfy interface narrowing)
   public readonly kind = "SafeExecution";
   public readonly originalError: unknown;
   public readonly mapperError: unknown;

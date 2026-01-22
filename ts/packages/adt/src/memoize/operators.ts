@@ -8,10 +8,10 @@ export const andPolicy = <T, E, M1, M2>(
 ): CachePolicy<T, E, [M1, M2]> => ({
   updateMetadata: (result) => {
     const m1 = p1.updateMetadata(result);
-    if (!m1.some) return { some: false };
+    if (!m1.some) return m1;
 
     const m2 = p2.updateMetadata(result);
-    if (!m2.some) return { some: false };
+    if (!m2.some) return m2;
 
     return some([m1.value, m2.value]);
   },
@@ -30,7 +30,7 @@ export const orPolicy = <T, E, M1, M2>(
     const b2 = p2.updateMetadata(result);
     if (b2.some) return some({ branch: "right", value: b2.value });
 
-    return { some: false };
+    return b2;
   },
 
   isFresh: (meta) =>

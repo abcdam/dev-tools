@@ -1,5 +1,5 @@
 import { err, ok } from "@result/primitives";
-import type { Result, ResultAsync } from "@result/types";
+import type { Result } from "@result/types";
 import { SafeExecutionError } from "./errors";
 
 const toSafeErrorMapper =
@@ -21,7 +21,8 @@ export const attempt = <T, E>(
   onError: (cause: unknown) => E,
 ): Result<T, E> => {
   try {
-    return ok(fn());
+    const value = fn();
+    return ok(value);
   } catch (e) {
     return err(onError(e));
   }
@@ -35,7 +36,7 @@ export const attemptSafe = <T, E>(
 export const attemptAsync = async <T, E>(
   fn: () => Promise<T>,
   onError: (cause: unknown) => E,
-): ResultAsync<T, E> => {
+): Promise<Result<T, E>> => {
   try {
     const value = await fn();
     return ok(value);
@@ -47,5 +48,5 @@ export const attemptAsync = async <T, E>(
 export const attemptAsyncSafe = async <T, E>(
   fn: () => Promise<T>,
   onError: (cause: unknown) => E,
-): ResultAsync<T, E | SafeExecutionError> =>
+): Promise<Result<T, E | SafeExecutionError>> =>
   attemptAsync(fn, toSafeErrorMapper(onError));
