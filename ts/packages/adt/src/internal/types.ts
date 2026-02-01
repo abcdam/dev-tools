@@ -1,5 +1,8 @@
-export type Awaitable<T> = T | Promise<T>;
+import type { Err, Ok, Result } from "@result:core/types";
 
-export type PolicyBranch<M1, M2> =
-  | { branch: "left"; value: M1 }
-  | { branch: "right"; value: M2 };
+export type UnwrapOk<R> = R extends Ok<infer V> ? V : never;
+
+export type UnwrapErr<R> = R extends Err<infer E> ? E : never;
+
+export type AnyResult = Result<any, any>;
+export type Awaitable<T> = T | Promise<T>;

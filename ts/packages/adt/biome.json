@@ -1,0 +1,4 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+  "extends": ["@abcd/cfg/biome/base", "@abcd/cfg/biome/strict/json"]
+}

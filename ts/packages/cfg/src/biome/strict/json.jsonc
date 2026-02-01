@@ -1,0 +1,15 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "lineEnding": "lf",
+      "indentWidth": 2,
+      "bracketSpacing": true,
+      "trailingCommas": "none"
+    },
+    "linter": { "enabled": true },
+    "assist": { "enabled": true }
+  }
+}

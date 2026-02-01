@@ -2,12 +2,10 @@ import { defineConfig } from "tsup";
 
 export default defineConfig((options) => ({
   entry: [
-    "src/index.ts",
-    "src/result/**/*.ts",
-    "src/memoize/**/*.ts",
-    "src/option/**/*.ts",
-    "src/match/**/*.ts",
-    "src/attempt/**/*.ts",
+    "src/modules/*/index.ts",
+    "src/modules/result/*/index.ts",
+    "src/modules/option/*/index.ts",
+    "src/modules/branch/*/index.ts",
   ],
   format: ["cjs", "esm"],
   dts: true,

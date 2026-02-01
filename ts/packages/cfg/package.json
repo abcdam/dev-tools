@@ -1,0 +1,21 @@
+{
+  "$schema": "https://www.schemastore.org/package",
+  "name": "@abcd/cfg",
+  "version": "0.0.1",
+  "license": "MIT",
+  "exports": {
+    "./biome/*": "./src/biome/*.jsonc",
+    "./ts/*": "./ts/*.json"
+  },
+  "files": [
+    "src",
+    "ts",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.13"
+  },
+  "peerDependencies": {
+    "@biomejs/biome": "~2.3.8"
+  }
+}

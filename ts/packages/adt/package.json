@@ -1,134 +1,30 @@
 {
-  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
+  "$schema": "https://www.schemastore.org/package",
   "type": "module",
   "name": "@abcd/adt",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./result": {
-      "import": {
-        "types": "./dist/result/index.d.ts",
-        "default": "./dist/result/index.js"
-      },
-      "require": {
-        "types": "./dist/result/index.d.ts",
-        "default": "./dist/result/index.cjs"
-      }
-    },
-    "./result/*": {
-      "import": {
-        "types": "./dist/result/*.d.ts",
-        "default": "./dist/result/*.js"
-      },
-      "require": {
-        "types": "./dist/result/*.d.ts",
-        "default": "./dist/result/*.cjs"
-      }
-    },
-    "./option": {
-      "import": {
-        "types": "./dist/option/index.d.ts",
-        "default": "./dist/option/index.js"
-      },
-      "require": {
-        "types": "./dist/option/index.d.ts",
-        "default": "./dist/option/index.cjs"
-      }
-    },
-    "./option/*": {
-      "import": {
-        "types": "./dist/option/*.d.ts",
-        "default": "./dist/option/*.js"
-      },
-      "require": {
-        "types": "./dist/option/*.d.ts",
-        "default": "./dist/option/*.cjs"
-      }
-    },
-    "./memoize": {
-      "import": {
-        "types": "./dist/memoize/index.d.ts",
-        "default": "./dist/memoize/index.js"
-      },
-      "require": {
-        "types": "./dist/memoize/index.d.ts",
-        "default": "./dist/memoize/index.cjs"
-      }
-    },
-    "./memoize/*": {
-      "import": {
-        "types": "./dist/memoize/*.d.ts",
-        "default": "./dist/memoize/*.js"
-      },
-      "require": {
-        "types": "./dist/memoize/*.d.ts",
-        "default": "./dist/memoize/*.cjs"
-      }
-    },
-    "./match": {
-      "import": {
-        "types": "./dist/match/index.d.ts",
-        "default": "./dist/match/index.js"
-      },
-      "require": {
-        "types": "./dist/match/index.d.ts",
-        "default": "./dist/match/index.cjs"
-      }
-    },
-    "./match/*": {
-      "import": {
-        "types": "./dist/match/*.d.ts",
-        "default": "./dist/match/*.js"
-      },
-      "require": {
-        "types": "./dist/match/*.d.ts",
-        "default": "./dist/match/*.cjs"
-      }
-    },
-    "./attempt": {
-      "import": {
-        "types": "./dist/attempt/index.d.ts",
-        "default": "./dist/attempt/index.js"
-      },
-      "require": {
-        "types": "./dist/attempt/index.d.ts",
-        "default": "./dist/attempt/index.cjs"
-      }
-    },
-    "./attempt/*": {
-      "import": {
-        "types": "./dist/attempt/*.d.ts",
-        "default": "./dist/attempt/*.js"
-      },
-      "require": {
-        "types": "./dist/attempt/*.d.ts",
-        "default": "./dist/attempt/*.cjs"
-      }
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "default": "./dist/*/index.js"
     }
   },
+  "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "check": "tsc --noEmit",
     "lint": "biome check src"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
+  "devDependencies": {
+    "@abcd/cfg": "workspace:*"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "abcdam",
+  "license": "MIT",
   "packageManager": "pnpm@10.20.0"
 }

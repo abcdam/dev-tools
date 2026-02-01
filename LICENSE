@@ -1,21 +1,30 @@
-MIT License
+Project Licenses
 
-Copyright (c) 2025 Adam
+This repository is a multi-language monorepo that contains public libraries 
+embedded in private monorepos. Legal permissions are granted as follows:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Public Libraries (abcd)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Any directory or package explicitly associated with the "abcd" namespace 
+is provided under the MIT License.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The MIT terms apply to any component that adopts the "abcd" identifier within 
+its package metadata or naming convention, whether 
+through ecosystem-specific scopes, prefixes, or directory paths. Furthermore,
+a local MIT LICENSE file must be present within that component's directory. 
+You are free to use, copy, modify, and distribute these libraries according to 
+those local terms.
+
+2. Infrastructure
+
+All other artifacts in this repository, including but not limited to 
+language-specific workspace roots, configuration files, build scripts, and 
+development environment settings, are PROPRIETARY. 
+
+All rights are reserved. No permission is granted to use, modify, or 
+distribute the repository's infrastructure and internal tooling without 
+explicit written consent from the author.
+
+---
+
+Copyright (c) 2026 abcdam
