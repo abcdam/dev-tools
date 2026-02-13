@@ -1,8 +1,6 @@
-import { isDefined } from "@internal/guards";
 import { none, some } from "@option:core/primitives";
 import type { Option } from "@option:core/types";
-export const defined = <T>(value: T): Option<NonNullable<T>> =>
-  isDefined(value) ? some(value) : none();
+import { isNotNullish } from "../../../utilities/guards/index.js";
 
 export function check<V, U extends V>(
   input: V,
@@ -17,3 +15,6 @@ export function check<V>(
 ): Option<V> {
   return predicate(input) ? some(input) : none();
 }
+
+export const defined = <T>(input: T): Option<NonNullable<T>> =>
+  check(input, isNotNullish);

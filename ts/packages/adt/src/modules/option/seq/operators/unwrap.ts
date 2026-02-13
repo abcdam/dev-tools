@@ -1,8 +1,8 @@
-import type { Option } from "@option:core/types";
 import {
   someOr as someOrCore,
   someOrElse as someOrElseCore,
-} from "@option:core/unwrap";
+} from "@option:core/operators/unwrap";
+import type { Option } from "@option:core/types";
 export const someOr =
   <D>(fallback: D) =>
   // Beautify: Collapse locked D into T if fallback is a subtype. Tsc is lazy and needs a poke (T[] | [] => T[])

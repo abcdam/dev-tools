@@ -3,8 +3,7 @@ import {
   defined as definedCore,
 } from "@option:core/from/fromCondition";
 import type { Option } from "@option:core/types";
-export const defined = <T>(value: T): Option<NonNullable<T>> =>
-  definedCore(value);
+export const defined: typeof definedCore = definedCore;
 
 export function check<V, U extends V>(
   guard: (input: V) => input is U,

@@ -6,6 +6,7 @@ export default defineConfig((options) => ({
     "src/modules/result/*/index.ts",
     "src/modules/option/*/index.ts",
     "src/modules/branch/*/index.ts",
+    "src/modules/compose/index.ts",
   ],
   format: ["cjs", "esm"],
   dts: true,

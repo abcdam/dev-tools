@@ -8,11 +8,11 @@
     "moduleResolution": "nodenext",
     "paths": {
       "@option:core/*": ["./src/modules/option/core/*.js"],
-      "@option:/*": ["./src/modules/option/*.js"],
-      "@branch/*": ["./src/modules/branch/*.js"],
       "@branch:core/*": ["./src/modules/branch/core/*.js"],
       "@result:core/*": ["./src/modules/result/core/*.js"],
-      "@internal/*": ["./src/internal/*.js"]
+      "@util/*": ["./src/modules/utilities/*.js"],
+      "@internal/*": ["./src/internal/*.js"],
+      "@compose:core/*": ["./src/modules/compose/*.js"]
     }
   },
   "include": ["src/**/*"],

@@ -6,9 +6,9 @@ import {
 
 import type { Result } from "@result:core/types";
 export const fromOptOr =
-  <E>(error: E) =>
+  <E>(errValue: E) =>
   <T>(option: Option<T>): Result<T, E> =>
-    fromOptOrCore(option, error);
+    fromOptOrCore(option, errValue);
 export const fromOptOrElse =
   <E>(errFn: () => E) =>
   <T>(option: Option<T>): Result<T, E> =>

@@ -1,20 +1,20 @@
 import type { Result } from "@result:core/types";
 
 export const okOr =
-  <U>(fallback: U) =>
-  <T, E>(result: Result<T, E>): T | U =>
+  <T2>(fallback: T2) =>
+  <T1, E>(result: Result<T1, E>): T1 | T2 =>
     result.ok ? result.value : fallback;
 
 export const okOrElse =
-  <U>(fallback: () => U) =>
-  <T, E>(result: Result<T, E>): T | U =>
-    result.ok ? result.value : fallback();
+  <T2, E>(fallback: (errValue: E) => T2) =>
+  <T1>(result: Result<T1, E>): T1 | T2 =>
+    result.ok ? result.value : fallback(result.error);
 
 export const errOr =
-  <U>(fallback: U) =>
-  <T, E>(result: Result<T, E>): E | U =>
+  <T2>(fallback: T2) =>
+  <T1, E>(result: Result<T1, E>): E | T2 =>
     result.ok ? fallback : result.error;
 export const errOrElse =
-  <U>(fallback: () => U) =>
-  <T, E>(result: Result<T, E>): E | U =>
+  <T2>(fallback: () => T2) =>
+  <T1, E>(result: Result<T1, E>): E | T2 =>
     result.ok ? fallback() : result.error;

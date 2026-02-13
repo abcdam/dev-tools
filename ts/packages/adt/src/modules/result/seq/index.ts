@@ -1,3 +1,4 @@
+export * from "@compose:core/index";
 export * from "@result:core/guards";
 export * from "@result:core/primitives";
 export * from "./from/index.js";

@@ -1,5 +1,5 @@
-import { left, right } from "@branch/core/primitives";
-import type { Branch } from "@branch/core/types";
+import { left, right } from "@branch:core/primitives";
+import type { Branch } from "@branch:core/types";
 
 export const mapLeft = <L, R, L2>(
   branch: Branch<L, R>,

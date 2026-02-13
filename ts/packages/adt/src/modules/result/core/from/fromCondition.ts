@@ -1,14 +1,6 @@
-import { isDefined } from "@internal/guards";
 import { err, ok } from "@result:core/primitives";
 import type { Result } from "@result:core/types";
-
-export const defined = <T, E>(value: T, error: E): Result<NonNullable<T>, E> =>
-  isDefined(value) ? ok(value) : err(error);
-
-export const definedOrElse = <T, E>(
-  value: T,
-  errFn: () => E,
-): Result<NonNullable<T>, E> => (isDefined(value) ? ok(value) : err(errFn()));
+import { isNotNullish } from "../../../utilities/guards/index.js";
 
 export function check<V, U extends V, E>(
   input: V,
@@ -49,3 +41,13 @@ export function checkOrElse<V, E>(
 ) {
   return predicate(input) ? ok(input) : err(errFn(input));
 }
+
+export const defined = <T, E>(
+  input: T,
+  errValue: E,
+): Result<NonNullable<T>, E> => check(input, isNotNullish, errValue);
+
+export const definedOrElse = <T, E>(
+  input: T,
+  errFn: () => E,
+): Result<NonNullable<T>, E> => checkOrElse(input, isNotNullish, errFn);

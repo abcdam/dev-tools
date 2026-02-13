@@ -1,5 +1,5 @@
-import { isPromise } from "@internal/guards";
 import type { Result } from "@result:core/types";
+import { isPromiseLike } from "../utilities/guards/index.js";
 import type { CachePolicy } from "./types.js";
 
 type Cache<T, E, Metadata> = {
@@ -50,7 +50,7 @@ export function memoize<T, E, Metadata>(
     if (pending) return pending;
 
     const awaitable = producer();
-    if (!isPromise(awaitable)) cache.update(awaitable);
+    if (!isPromiseLike(awaitable)) cache.update(awaitable);
     else {
       pending = awaitable;
       awaitable.then(cache.update).finally(() => {

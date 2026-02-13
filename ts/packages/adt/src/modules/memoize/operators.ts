@@ -1,6 +1,6 @@
-import { match } from "@branch/core/match";
-import { left, right } from "@branch/core/primitives";
-import type { Branch } from "@branch/core/types";
+import { match } from "@branch:core/match";
+import { left, right } from "@branch:core/primitives";
+import type { Branch } from "@branch:core/types";
 import { none, some } from "@option:core/primitives";
 import type { CachePolicy } from "./types.js";
 

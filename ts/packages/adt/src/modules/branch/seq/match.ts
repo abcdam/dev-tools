@@ -1,5 +1,5 @@
-import type { Branch } from "@branch/core/types";
 import { match as matchCore } from "@branch:core/match";
+import type { Branch } from "@branch:core/types";
 
 export const match =
   <L, R, O>(leftFn: (leftValue: L) => O, rightFn: (rightValue: R) => O) =>
