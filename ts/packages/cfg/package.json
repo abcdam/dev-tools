@@ -1,8 +1,9 @@
 {
   "$schema": "https://www.schemastore.org/package",
   "name": "@abcd/cfg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
+  "description": "Collection of configuration fragments",
   "exports": {
     "./biome/*": "./src/biome/*.jsonc",
     "./ts/*": "./ts/*.json"
@@ -12,10 +13,20 @@
     "ts",
     "LICENSE"
   ],
+  "scripts": {
+    "sync:biome": "./sync-schema.sh",
+    "sync:ts": "./sync-ts-proxy.sh"
+  },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.13"
+    "@biomejs/biome": "catalog:",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
-    "@biomejs/biome": "~2.3.8"
+    "@biomejs/biome": "~2.4.7"
+  },
+  "peerDependenciesMeta": {
+    "@biomejs/biome": {
+      "optional": true
+    }
   }
 }

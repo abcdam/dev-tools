@@ -4,16 +4,17 @@ import {
   defined as definedCore,
   definedOrElse as definedOrElseCore,
 } from "@result:core/from/fromCondition";
+import type { NeverNullOrUndefined } from "@util/guards/types";
 import type { Result } from "../types.js";
 
 export const defined =
   <E>(errValue: E) =>
-  <T>(input: T): Result<NonNullable<T>, E> =>
+  <T>(input: T): Result<NeverNullOrUndefined<T>, E> =>
     definedCore(input, errValue);
 
 export const definedOrElse =
   <E>(errorFn: () => E) =>
-  <T>(input: T): Result<NonNullable<T>, E> =>
+  <T>(input: T): Result<NeverNullOrUndefined<T>, E> =>
     definedOrElseCore(input, errorFn);
 
 export function check<V, U extends V, E>(

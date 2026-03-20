@@ -1,4 +1,6 @@
-import type { NullOrUndefined } from "./types.js";
+export type * from "./types.js";
+
+import type { NeverNullOrUndefined, NullOrUndefined } from "./types.js";
 
 export const isPromiseLike = <T>(
   result: T | PromiseLike<T>,
@@ -9,10 +11,12 @@ export const isPromiseLike = <T>(
 export const isNullish = <T>(input: T): input is NullOrUndefined<T> =>
   input == null;
 
-export const isNotNullish = <T>(input: T): input is NonNullable<T> =>
+export const isNotNullish = <T>(input: T): input is NeverNullOrUndefined<T> =>
   !isNullish(input);
 
-export const isObject = (input: unknown): input is NonNullable<object> =>
+export const isObject = (
+  input: unknown,
+): input is NeverNullOrUndefined<object> =>
   !isNullish(input) && typeof input === "object";
 
 /**

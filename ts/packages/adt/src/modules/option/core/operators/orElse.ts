@@ -1,4 +1,5 @@
 import type { Option } from "@option:core/types";
+
 export const orElse = <T1, T2 = T1>(
   opt: Option<T1>,
   recoverFn: () => Option<T2>,

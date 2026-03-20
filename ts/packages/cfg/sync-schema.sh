@@ -8,7 +8,7 @@
 #
 set -eu
 URL=https://biomejs.dev/schemas
-LOOKUP_PROP=".devDependencies[\"@biomejs/biome\"]"
+LOOKUP_PROP=".peerDependencies[\"@biomejs/biome\"]"
 DEP_SEMVER=$(jq -r "$LOOKUP_PROP" package.json | sed 's/[^0-9.]//g')
 
 transform() {

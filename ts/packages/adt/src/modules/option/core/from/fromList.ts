@@ -1,13 +1,16 @@
 import { none, some } from "@option:core/primitives";
 import type { Option } from "@option:core/types";
+
 export function findItem<T, U extends T>(
   list: T[],
   guard: (item: T) => item is U,
 ): Option<U>;
+
 export function findItem<T>(
   list: T[],
   predicate: (item: T) => boolean,
 ): Option<T>;
+
 export function findItem<T>(
   list: T[],
   predicate: (item: T) => boolean,

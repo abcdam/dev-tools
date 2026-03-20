@@ -1,6 +1,6 @@
 import { err, ok } from "@result:core/primitives";
 import type { Result } from "@result:core/types";
-import { isNotNullish } from "../../../utilities/guards/index.js";
+import { isNotNullish, type NeverNullOrUndefined } from "@util/guards/index";
 
 export function check<V, U extends V, E>(
   input: V,
@@ -45,9 +45,10 @@ export function checkOrElse<V, E>(
 export const defined = <T, E>(
   input: T,
   errValue: E,
-): Result<NonNullable<T>, E> => check(input, isNotNullish, errValue);
+): Result<NeverNullOrUndefined<T>, E> => check(input, isNotNullish, errValue);
 
 export const definedOrElse = <T, E>(
   input: T,
   errFn: () => E,
-): Result<NonNullable<T>, E> => checkOrElse(input, isNotNullish, errFn);
+): Result<NeverNullOrUndefined<T>, E> =>
+  checkOrElse(input, isNotNullish, errFn);

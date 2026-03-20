@@ -2,7 +2,7 @@
   "$schema": "https://www.schemastore.org/package",
   "type": "module",
   "name": "@abcd/adt",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "exports": {
     "./*": {
@@ -12,19 +12,24 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && tsc --emitDeclarationOnly --declarationMap --rootDir src/modules --outDir dist",
     "check": "tsc --noEmit",
     "lint": "biome check src"
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "src"
   ],
   "devDependencies": {
-    "@abcd/cfg": "workspace:*"
+    "@abcd/cfg": "workspace:*",
+    "@biomejs/biome": "catalog:",
+    "ts-patch": "^3.3.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "typescript-transform-paths": "^3.5.6"
   },
   "keywords": [],
   "author": "abcdam",
-  "license": "MIT",
-  "packageManager": "pnpm@10.20.0"
+  "license": "MIT"
 }

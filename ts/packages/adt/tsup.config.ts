@@ -1,6 +1,7 @@
+// tsup.config.ts
 import { defineConfig } from "tsup";
 
-export default defineConfig((options) => ({
+export default defineConfig((_options) => ({
   entry: [
     "src/modules/*/index.ts",
     "src/modules/result/*/index.ts",
@@ -9,9 +10,9 @@ export default defineConfig((options) => ({
     "src/modules/compose/index.ts",
   ],
   format: ["cjs", "esm"],
-  dts: true,
+  dts: false,
   splitting: true,
   sourcemap: true,
   clean: true,
-  minify: !options.watch,
+  minify: false,
 }));
