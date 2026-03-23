@@ -1,5 +1,6 @@
-import type { Result } from "@result:core/types";
-import { isPromiseLike } from "../utilities/guards/index.js";
+import type { Result } from "#result/primitive.js";
+import { isPromiseLike } from "#utility/guard.js";
+
 import type { CachePolicy } from "./types.js";
 
 type Cache<T, E, Metadata> = {

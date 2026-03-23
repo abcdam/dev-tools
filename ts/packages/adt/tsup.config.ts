@@ -3,11 +3,11 @@ import { defineConfig } from "tsup";
 
 export default defineConfig((_options) => ({
   entry: [
-    "src/modules/*/index.ts",
-    "src/modules/result/*/index.ts",
-    "src/modules/option/*/index.ts",
-    "src/modules/branch/*/index.ts",
-    "src/modules/compose/index.ts",
+    "src/exports/**/*.ts",
+    // "src/modules/result/*/index.ts",
+    // "src/modules/option/*/index.ts",
+    // "src/modules/branch/*/index.ts",
+    // "src/modules/compose/index.ts",
   ],
   format: ["cjs", "esm"],
   dts: false,

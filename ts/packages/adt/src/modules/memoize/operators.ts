@@ -1,7 +1,7 @@
 import { match } from "@branch:core/match";
 import { left, right } from "@branch:core/primitives";
 import type { Branch } from "@branch:core/types";
-import { none, some } from "@option:core/primitives";
+import { none, some } from "#option/primitive.js";
 import type { CachePolicy } from "./types.js";
 
 export const andPolicy = <T, E, M1, M2>(

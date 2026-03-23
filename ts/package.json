@@ -5,7 +5,7 @@
   "private": true,
   "description": "orchestrator for typescript packages",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:abcd": "rm -rf out && pnpm --filter \"@abcd/*\" exec pnpm pack --pack-destination ../../out"
   },
   "engines": {
     "node": ">=22.0.0"

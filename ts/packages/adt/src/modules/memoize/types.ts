@@ -1,5 +1,5 @@
-import type { Option } from "@option:core/types";
-import type { Result } from "@result:core/types";
+import type { Option } from "#option/primitive.js";
+import type { Result } from "#result/primitive.js";
 
 /**
  * A policy is an entity that manages the "Metadata" associated with an instance of a cacheable Result.

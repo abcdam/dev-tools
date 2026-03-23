@@ -1,0 +1,12 @@
+import type { ErrDefined, OkDefined } from "../../internal.js";
+import { err, ok, type Result } from "../../primitive.js";
+
+export const map = <T1, T2, E>(
+  result: Result<T1, E> & OkDefined<T1>,
+  mapFn: (okValue: T1) => T2,
+): Result<T2, E> => (result.ok === true ? ok(mapFn(result.value)) : result);
+
+export const mapErr = <T1, E1, E2 = E1>(
+  result: Result<T1, E1> & ErrDefined<E1>,
+  mapFn: (errValue: E1) => E2,
+): Result<T1, E2> => (result.ok === true ? result : err(mapFn(result.error)));

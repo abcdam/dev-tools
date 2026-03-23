@@ -1,8 +1,23 @@
-import type { Err, Ok, Result } from "@result:core/types";
+import { SafeExecutionError } from "./execution.error.js";
+import { type Err, err } from "./primitive.js";
 
-export type UnwrapOk<R> = R extends Ok<infer V> ? V : never;
+export type DeadCodeError<Reason extends string> = {
+  "♻️ Useless call. Can be safely removed": Reason;
+};
 
-export type UnwrapErr<R> = R extends Err<infer E> ? E : never;
+export type CheckExistence<T, FailMsg extends string> = [T] extends [never]
+  ? DeadCodeError<FailMsg>
+  : unknown;
+export type OkDefined<T> = CheckExistence<
+  T,
+  "❌ Mapping Ok on a guaranteed error"
+>;
 
-export type AnyResult = Result<any, any>;
-export type Awaitable<T> = T | Promise<T>;
+export type ErrDefined<E> = CheckExistence<
+  E,
+  "❌ Mapping Err on guaranteed success"
+>;
+export const mapErrSafely =
+  (originalError: unknown) =>
+  (mapperError: unknown): Err<SafeExecutionError> =>
+    err(new SafeExecutionError(originalError, mapperError));
