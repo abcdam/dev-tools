@@ -2,13 +2,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((_options) => ({
-  entry: [
-    "src/exports/**/*.ts",
-    // "src/modules/result/*/index.ts",
-    // "src/modules/option/*/index.ts",
-    // "src/modules/branch/*/index.ts",
-    // "src/modules/compose/index.ts",
-  ],
+  entry: ["src/exports/**/*.ts"],
   format: ["cjs", "esm"],
   dts: false,
   splitting: true,

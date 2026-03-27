@@ -1,5 +1,9 @@
+////////////////////////////////////////////////////////////
+// ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
+//////////////////////////////////////////////////////////
+
+import { none, type Option } from "#option/primitive.js";
 import type { GuardFn } from "#utility/guard.js";
-import { none, type Option } from "../../primitive.js";
 
 export function filter<V, R1 extends V>(
   option: Option<V>,
@@ -127,12 +131,13 @@ export function filter<
 
 export function filter<V>(
   option: Option<V>,
-  ...predicates: Array<(option: V) => boolean>
+  ...predicates: Array<(input: V) => boolean>
 ): Option<V>;
 
-export function filter(option: any, ...predicates: any[]): any {
+export function filter(option: any, ...predicates: any[]) {
   if (option.exists === false) return option;
   const v = option.value;
-  for (const p of predicates) if (p(v)) return option;
+  const limit = predicates.length;
+  for (let i = 0; i < limit; i++) if (predicates[i](v)) return option;
   return none();
 }

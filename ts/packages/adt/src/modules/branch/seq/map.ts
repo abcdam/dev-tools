@@ -2,8 +2,8 @@ import {
   bimap as bimapCore,
   mapLeft as mapLeftCore,
   mapRight as mapRightCore,
-} from "@branch:core/map";
-import type { Branch } from "@branch:core/types";
+} from "#branch/core/map.js";
+import type { Branch } from "#branch/primitives.js";
 
 export const mapLeft =
   <L, L2>(mapFn: (leftValue: L) => L2) =>

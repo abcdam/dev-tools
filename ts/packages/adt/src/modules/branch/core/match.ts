@@ -1,4 +1,4 @@
-import type { Branch } from "@branch:core/types";
+import type { Branch } from "#branch/primitives.js";
 
 export const match = <L, R, O>(
   branch: Branch<L, R>,

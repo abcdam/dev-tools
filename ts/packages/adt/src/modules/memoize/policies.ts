@@ -1,4 +1,4 @@
-import type { Branch } from "@branch:core/types";
+import type { Branch } from "#branch/primitives.js";
 import { none, some } from "#option/primitive.js";
 import { andPolicy, orPolicy } from "./operators.js";
 import type { CachePolicy } from "./types.js";

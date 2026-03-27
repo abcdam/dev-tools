@@ -1,5 +1,10 @@
+////////////////////////////////////////////////////////////
+// ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
+//////////////////////////////////////////////////////////
+
+import { some, none, type Option } from "#option/primitive.js";
 import type { GuardFn } from "#utility/guard.js";
-import { none, type Option, some } from "../../primitive.js";
+
 export function check<V, R1 extends V>(
   ...guards: [g1: GuardFn<V, R1>]
 ): (input: V) => Option<R1>;
@@ -122,7 +127,9 @@ export function check<V>(
 
 export function check(...predicates: any[]) {
   return (input: any) => {
-    for (const p of predicates) if (p(input)) return some(input);
+    const limit = predicates.length;
+    for (let i = 0; i < limit; i++)
+      if (predicates[i](input)) return some(input);
     return none();
   };
 }

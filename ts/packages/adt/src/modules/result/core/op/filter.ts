@@ -1,15 +1,19 @@
+////////////////////////////////////////////////////////////
+// ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
+//////////////////////////////////////////////////////////
+
+import { err, type Result } from "#result/primitive.js";
 import type { GuardFn } from "#utility/guard.js";
-import { err, type Result } from "../../primitive.js";
 
 export function filterOr<V, E, R1 extends V>(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [g1: GuardFn<V, R1>]
 ): Result<R1, E>;
 
 export function filterOr<V, E, R1 extends V, R2 extends Exclude<V, R1>>(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [g1: GuardFn<V, R1>, g2: GuardFn<Exclude<V, R1>, R2>]
 ): Result<R1 | R2, E>;
 
@@ -21,7 +25,7 @@ export function filterOr<
   R3 extends Exclude<V, R1 | R2>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -38,7 +42,7 @@ export function filterOr<
   R4 extends Exclude<V, R1 | R2 | R3>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -57,7 +61,7 @@ export function filterOr<
   R5 extends Exclude<V, R1 | R2 | R3 | R4>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -78,7 +82,7 @@ export function filterOr<
   R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -101,7 +105,7 @@ export function filterOr<
   R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -126,7 +130,7 @@ export function filterOr<
   R8 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>,
 >(
   result: Result<V, E>,
-  onErr: E,
+  errValue: E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -141,26 +145,27 @@ export function filterOr<
 
 export function filterOr<V, E>(
   result: Result<V, E>,
-  onErr: E,
-  ...predicates: Array<(v: V) => boolean>
+  errValue: E,
+  ...predicates: Array<(input: V) => boolean>
 ): Result<V, E>;
 
-export function filterOr(result: any, onErr: any, ...predicates: any[]): any {
+export function filterOr(result: any, errValue: any, ...predicates: any[]) {
   if (result.ok === false) return result;
   const v = result.value;
-  for (const p of predicates) if (p(v)) return result;
-  return err(onErr);
+  const limit = predicates.length;
+  for (let i = 0; i < limit; i++) if (predicates[i](v)) return result;
+  return err(errValue);
 }
 
 export function filterElse<V, E, R1 extends V>(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [g1: GuardFn<V, R1>]
 ): Result<R1, E>;
 
 export function filterElse<V, E, R1 extends V, R2 extends Exclude<V, R1>>(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [g1: GuardFn<V, R1>, g2: GuardFn<Exclude<V, R1>, R2>]
 ): Result<R1 | R2, E>;
 
@@ -172,7 +177,7 @@ export function filterElse<
   R3 extends Exclude<V, R1 | R2>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -189,7 +194,7 @@ export function filterElse<
   R4 extends Exclude<V, R1 | R2 | R3>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -208,7 +213,7 @@ export function filterElse<
   R5 extends Exclude<V, R1 | R2 | R3 | R4>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -229,7 +234,7 @@ export function filterElse<
   R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -252,7 +257,7 @@ export function filterElse<
   R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -277,7 +282,7 @@ export function filterElse<
   R8 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>,
 >(
   result: Result<V, E>,
-  onErr: (v: V) => E,
+  errFn: (input: V) => E,
   ...guards: [
     g1: GuardFn<V, R1>,
     g2: GuardFn<Exclude<V, R1>, R2>,
@@ -292,13 +297,14 @@ export function filterElse<
 
 export function filterElse<V, E>(
   result: Result<V, E>,
-  onErr: (v: V) => E,
-  ...predicates: Array<(v: V) => boolean>
+  errFn: (input: V) => E,
+  ...predicates: Array<(input: V) => boolean>
 ): Result<V, E>;
 
-export function filterElse(result: any, onErr: any, ...predicates: any[]): any {
+export function filterElse(result: any, errFn: any, ...predicates: any[]) {
   if (result.ok === false) return result;
   const v = result.value;
-  for (const p of predicates) if (p(v)) return result;
-  return err(onErr(v));
+  const limit = predicates.length;
+  for (let i = 0; i < limit; i++) if (predicates[i](v)) return result;
+  return err(errFn(v));
 }
