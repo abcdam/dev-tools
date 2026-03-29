@@ -9,7 +9,7 @@ export type NeverFalsy<T> = Exclude<T, FalsyValues>;
 export type Falsy<T> = Extract<T, FalsyValues>;
 
 export type GuardFn<in I, out O extends I> = (v: I) => v is O;
-
+export type PredicateFn<in I> = (v: I) => boolean;
 export const isPromiseLike = <T>(
   result: T | PromiseLike<T>,
 ): result is PromiseLike<T> =>

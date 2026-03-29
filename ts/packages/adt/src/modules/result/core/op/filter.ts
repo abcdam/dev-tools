@@ -3,308 +3,332 @@
 //////////////////////////////////////////////////////////
 
 import { err, type Result } from "#result/primitive.js";
-import type { GuardFn } from "#utility/guard.js";
+import type { GuardFn, PredicateFn } from "#utility/guard.js";
 
-export function filterOr<V, E, R1 extends V>(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [g1: GuardFn<V, R1>]
-): Result<R1, E>;
+export function filterOr<T, E1, E2, U1 extends T>(
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errValue: E2]
+): Result<U1, E1 | E2>;
 
-export function filterOr<V, E, R1 extends V, R2 extends Exclude<V, R1>>(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [g1: GuardFn<V, R1>, g2: GuardFn<Exclude<V, R1>, R2>]
-): Result<R1 | R2, E>;
+export function filterOr<T, E1, E2, U1 extends T, U2 extends Exclude<T, U1>>(
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    errValue: E2,
+  ]
+): Result<U1 | U2, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3, E>;
+): Result<U1 | U2 | U3, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3 | R4, E>;
+): Result<U1 | U2 | U3 | U4, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5, E>;
+): Result<U1 | U2 | U3 | U4 | U5, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6 | R7, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7, E1 | E2>;
 
 export function filterOr<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
-  R8 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
+  U8 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>,
 >(
-  result: Result<V, E>,
-  errValue: E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
-    g8: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>, R8>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g8: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
+    errValue: E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6 | R7 | R8, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7 | U8, E1 | E2>;
 
-export function filterOr<V, E>(
-  result: Result<V, E>,
-  errValue: E,
-  ...predicates: Array<(input: V) => boolean>
-): Result<V, E>;
+export function filterOr<T, E1, E2>(
+  result: Result<T, E1>,
+  ...predicatesWithErrFallback: [
+    PredicateFn<T>,
+    ...PredicateFn<T>[],
+    errValue: E2,
+  ]
+): Result<T, E1 | E2>;
 
-export function filterOr(result: any, errValue: any, ...predicates: any[]) {
+export function filterOr(result: any, ...fnsWithErrFallback: any[]) {
   if (result.ok === false) return result;
   const v = result.value;
-  const limit = predicates.length;
-  for (let i = 0; i < limit; i++) if (predicates[i](v)) return result;
+  const errValue = fnsWithErrFallback.pop();
+  const limit = fnsWithErrFallback.length;
+  for (let i = 0; i < limit; i++) if (fnsWithErrFallback[i](v)) return result;
   return err(errValue);
 }
 
-export function filterElse<V, E, R1 extends V>(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [g1: GuardFn<V, R1>]
-): Result<R1, E>;
+export function filterElse<T, E1, E2, U1 extends T>(
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errFn: (data: T) => E2]
+): Result<U1, E1 | E2>;
 
-export function filterElse<V, E, R1 extends V, R2 extends Exclude<V, R1>>(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [g1: GuardFn<V, R1>, g2: GuardFn<Exclude<V, R1>, R2>]
-): Result<R1 | R2, E>;
+export function filterElse<T, E1, E2, U1 extends T, U2 extends Exclude<T, U1>>(
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    errFn: (data: T) => E2,
+  ]
+): Result<U1 | U2, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3, E>;
+): Result<U1 | U2 | U3, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3 | R4, E>;
+): Result<U1 | U2 | U3 | U4, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5, E>;
+): Result<U1 | U2 | U3 | U4 | U5, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6 | R7, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7, E1 | E2>;
 
 export function filterElse<
-  V,
-  E,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
-  R8 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>,
+  T,
+  E1,
+  E2,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
+  U8 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>,
 >(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
-    g8: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>, R8>,
+  result: Result<T, E1>,
+  ...guardsWithErrFallback: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g8: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
+    errFn: (data: T) => E2,
   ]
-): Result<R1 | R2 | R3 | R4 | R5 | R6 | R7 | R8, E>;
+): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7 | U8, E1 | E2>;
 
-export function filterElse<V, E>(
-  result: Result<V, E>,
-  errFn: (input: V) => E,
-  ...predicates: Array<(input: V) => boolean>
-): Result<V, E>;
+export function filterElse<T, E1, E2>(
+  result: Result<T, E1>,
+  ...predicatesWithErrFallback: [
+    PredicateFn<T>,
+    ...PredicateFn<T>[],
+    errFn: (data: T) => E2,
+  ]
+): Result<T, E1 | E2>;
 
-export function filterElse(result: any, errFn: any, ...predicates: any[]) {
+export function filterElse(result: any, ...fnsWithErrFallback: any[]) {
   if (result.ok === false) return result;
   const v = result.value;
-  const limit = predicates.length;
-  for (let i = 0; i < limit; i++) if (predicates[i](v)) return result;
+  const errFn = fnsWithErrFallback.pop();
+  const limit = fnsWithErrFallback.length;
+  for (let i = 0; i < limit; i++) if (fnsWithErrFallback[i](v)) return result;
   return err(errFn(v));
 }
