@@ -13,11 +13,10 @@ export type PredicateFn<in I> = (v: I) => boolean;
 export const isPromiseLike = <T>(
   result: T | PromiseLike<T>,
 ): result is PromiseLike<T> =>
-  result instanceof Promise ||
-  (result != null &&
-    (typeof result === "object" || typeof result === "function") &&
-    // biome-ignore lint/suspicious/noExplicitAny: <use ducktyping to handle different Promise implementations>
-    typeof (result as any).then === "function");
+  result != null
+  && (typeof result === "object" || typeof result === "function")
+  && // biome-ignore lint/suspicious/noExplicitAny: <use ducktyping to handle different Promise implementations>
+  typeof (result as any).then === "function";
 
 export const isNullish = <T>(input: T): input is NullOrUndefined<T> =>
   input == null;

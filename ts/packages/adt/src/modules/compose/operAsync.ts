@@ -1,8 +1,6 @@
-import type { OperAsync } from "./types.js";
-
-export function operAsync<A>(): OperAsync<A, A>;
-
-export function operAsync<A, B>(f1: OperAsync<A, B>): OperAsync<A, B>;
+import { isPromiseLike } from "#utility/guard.js";
+import { _asyncTail, _operAsyncFallback, type UnknownFn } from "./internal.js";
+import type { Oper, OperAsync } from "./types.js";
 
 export function operAsync<A, B, C>(
   f1: OperAsync<A, B>,
@@ -114,14 +112,13 @@ export function operAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   f12: OperAsync<L, M>,
 ): OperAsync<A, M>;
 
-export function operAsync(...fns: any[]): any {
-  return (initialValue: any) => {
-    let acc = initialValue;
-    for (let i = 0; i < fns.length; i++)
-      acc =
-        acc instanceof Promise || typeof (acc as any).then === "function"
-          ? acc.then(fns[i])
-          : fns[i](acc);
-    return Promise.resolve(acc);
+export function operAsync(...fns: UnknownFn[]): Oper<unknown, unknown> {
+  const exec = _operAsyncFallback(fns);
+  return initialValue => {
+    try {
+      return exec(initialValue);
+    } catch (e) {
+      return Promise.reject(e);
+    }
   };
 }

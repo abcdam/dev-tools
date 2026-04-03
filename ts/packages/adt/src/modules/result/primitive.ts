@@ -10,6 +10,24 @@ export type Err<out E> = {
 
 export type Result<T, E> = Ok<T> | Err<E>;
 
+export type BaseResult = Result<unknown, unknown>;
+
+export type InferOk<R extends BaseResult> = R extends Ok<infer T> ? T : never;
+export type InferErr<R extends BaseResult> = R extends Err<infer E> ? E : never;
+
+export type NormalizeResult<R extends BaseResult> = Result<
+  InferOk<R>,
+  InferErr<R>
+>;
+
+export type InferOks<T extends readonly BaseResult[]> = {
+  -readonly [K in keyof T]: InferOk<T[K]>;
+};
+
+export type InferErrs<T extends readonly BaseResult[]> = {
+  -readonly [K in keyof T]: InferErr<T[K]>;
+};
+
 export const ok = <T>(value: T): Ok<T> => ({ ok: true, value });
 
 export const err = <E>(error: E): Err<E> => ({ ok: false, error });

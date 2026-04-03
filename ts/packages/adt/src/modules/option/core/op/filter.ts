@@ -139,5 +139,5 @@ export function filter(option: any, ...fns: any[]) {
   const v = option.value;
   const limit = fns.length;
   for (let i = 0; i < limit; i++) if (fns[i](v)) return option;
-  return none();
+  return _NONE;
 }

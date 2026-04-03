@@ -1,16 +1,10 @@
+import { isPromiseLike } from "#utility/guard.js";
+import { _asyncTail, _seqAsyncEager, type UnknownFn } from "./internal.js";
 import type { OperAsync } from "./types.js";
 
 /**
  *
- * This is a somewhat raw but performant implementation of an async pipeline
- * that processes input synchronously until the first promise is encountered.
  *
- * **IMPORTANT**
- * It is the responsibility of the consumer to ensure:
- * * **Error Management:** strictly avoid throwable side-effects (use e.g. `Result<T,E>`)
- * * **Non-Nullable Values:** Values must never be `null` or `undefined` (use e.g. `Option<T>`)
- *
- * > Ignoring these measures will lead to sweat and tears.
  *
  * @param initial - intial value
  * @param fns unary operations (single input functions) to apply in sequence.
@@ -18,8 +12,6 @@ import type { OperAsync } from "./types.js";
  *
  * @see {@link OperAsync}
  */
-export function seqAsync<A>(initial: A): Promise<A>;
-export function seqAsync<A, B>(initial: A, f1: OperAsync<A, B>): Promise<B>;
 export function seqAsync<A, B, C>(
   initial: A,
   f1: OperAsync<A, B>,
@@ -131,12 +123,10 @@ export function seqAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   f12: OperAsync<L, M>,
 ): Promise<M>;
 
-export function seqAsync(initialValue: any, ...fns: any[]): any {
-  let acc = initialValue;
-  for (let i = 0; i < fns.length; i++)
-    acc =
-      acc instanceof Promise || typeof (acc as any).then === "function"
-        ? acc.then(fns[i])
-        : fns[i](acc);
-  return Promise.resolve(acc);
+export function seqAsync(initialValue: unknown, ...fns: UnknownFn[]): unknown {
+  try {
+    return _seqAsyncEager(initialValue, fns);
+  } catch (e) {
+    return Promise.reject(e);
+  }
 }

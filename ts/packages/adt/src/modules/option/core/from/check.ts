@@ -2,7 +2,8 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { none, type Option, some } from "#option/primitive.js";
+import { _NONE } from "#option/const.js";
+import { type Option, some } from "#option/primitive.js";
 import type { GuardFn, PredicateFn } from "#utility/guard.js";
 
 export function check<T, U1 extends T>(
@@ -137,5 +138,5 @@ export function check<T>(
 export function check(data: any, ...fns: any[]) {
   const limit = fns.length;
   for (let i = 0; i < limit; i++) if (fns[i](data)) return some(data);
-  return none();
+  return _NONE;
 }

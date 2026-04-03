@@ -1,8 +1,5 @@
+import type { UnknownFn } from "./internal.js";
 import type { Oper } from "./types.js";
-
-export function oper<A>(): Oper<A, A>;
-
-export function oper<A, B>(f1: Oper<A, B>): Oper<A, B>;
 
 export function oper<A, B, C>(f1: Oper<A, B>, f2: Oper<B, C>): Oper<A, C>;
 
@@ -111,10 +108,6 @@ export function oper<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   f12: Oper<L, M>,
 ): Oper<A, M>;
 
-export function oper(...fns: any[]): any {
-  return (initialValue: any) => {
-    let acc = initialValue;
-    for (let i = 0; i < fns.length; i++) acc = fns[i](acc);
-    return acc;
-  };
+export function oper(...fns: UnknownFn[]): unknown {
+  return fns.reduce((a, b) => x => b(a(x)));
 }

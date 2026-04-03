@@ -2,7 +2,8 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { none, type Option } from "#option/primitive.js";
+import { _NONE } from "#option/const.js";
+import type { Option } from "#option/primitive.js";
 import type { GuardFn, PredicateFn } from "#utility/guard.js";
 
 export function filter<T, U1 extends T>(
@@ -131,6 +132,6 @@ export function filter(...fns: any[]) {
     if (option.exists === false) return option;
     const v = option.value;
     for (let i = 0; i < limit; i++) if (fns[i](v)) return option;
-    return none();
+    return _NONE;
   };
 }

@@ -1,3 +1,4 @@
+import type { UnknownFn } from "./internal.js";
 import type { Oper } from "./types.js";
 
 /**
@@ -14,8 +15,6 @@ import type { Oper } from "./types.js";
  * * operates on a shallow copy of `initialValue`.
  * @see {@link SeqFn} for the type definition
  */
-export function seq<A>(initial: A): A;
-export function seq<A, B>(initial: A, f1: Oper<A, B>): B;
 export function seq<A, B, C>(initial: A, f1: Oper<A, B>, f2: Oper<B, C>): C;
 export function seq<A, B, C, D>(
   initial: A,
@@ -123,8 +122,7 @@ export function seq<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   f12: Oper<L, M>,
 ): M;
 
-export function seq(initialValue: any, ...fns: any[]): any {
-  let acc = initialValue;
-  for (let i = 0; i < fns.length; i++) acc = fns[i](acc);
+export function seq(acc: unknown, ...fns: UnknownFn[]): unknown {
+  for (let i = 0; i < fns.length; i++) acc = fns[i]!(acc);
   return acc;
 }
