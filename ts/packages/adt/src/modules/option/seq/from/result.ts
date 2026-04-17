@@ -1,1 +1,1 @@
-export { fromResult } from "#option/core/from/result.js";
+export { takeOk } from "#option/core/from/result.js";

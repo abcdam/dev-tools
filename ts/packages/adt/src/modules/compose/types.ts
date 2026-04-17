@@ -5,4 +5,7 @@ export type InferIn<O extends BaseOper> =
 export type InferOut<O extends BaseOper> =
   O extends Oper<any, infer Out> ? Out : never;
 
-export type OperAsync<in In, out Out> = Oper<Awaited<In>, Out | Promise<Out>>;
+export type OperAsync<in In, out Out> = Oper<
+  Awaited<In>,
+  Promise<Awaited<Out>>
+>;

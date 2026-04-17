@@ -2,7 +2,10 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { none, type Option } from "#option/primitive.js";
+// biome-ignore-all assist/source/organizeImports: haltsmaul
+
+import type { Option, BaseOption } from "#option/primitive.js";
+import { _NONE } from "#option/const.js";
 import type { GuardFn, PredicateFn } from "#utility/guard.js";
 
 export function filter<T, U1 extends T>(
@@ -134,9 +137,9 @@ export function filter<T>(
   ...predicates: [PredicateFn<T>, ...PredicateFn<T>[]]
 ): Option<T>;
 
-export function filter(option: any, ...fns: any[]) {
+export function filter(option: BaseOption, ...fns: any[]) {
   if (option.exists === false) return option;
-  const v = option.value;
+  const v = option.val;
   const limit = fns.length;
   for (let i = 0; i < limit; i++) if (fns[i](v)) return option;
   return _NONE;

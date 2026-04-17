@@ -1,4 +1,4 @@
-import type { UnknownFn } from "./internal.js";
+import { assertOpsArgs, type UnknownFn } from "./internal.js";
 import type { Oper } from "./types.js";
 
 /**
@@ -15,6 +15,8 @@ import type { Oper } from "./types.js";
  * * operates on a shallow copy of `initialValue`.
  * @see {@link SeqFn} for the type definition
  */
+
+export function seq<A, B>(initial: A, f1: Oper<A, B>): B;
 export function seq<A, B, C>(initial: A, f1: Oper<A, B>, f2: Oper<B, C>): C;
 export function seq<A, B, C, D>(
   initial: A,
@@ -67,62 +69,35 @@ export function seq<A, B, C, D, E, F, G, H, I>(
   f7: Oper<G, H>,
   f8: Oper<H, I>,
 ): I;
-export function seq<A, B, C, D, E, F, G, H, I, J>(
-  initial: A,
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-): J;
-export function seq<A, B, C, D, E, F, G, H, I, J, K>(
-  initial: A,
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
-): K;
-export function seq<A, B, C, D, E, F, G, H, I, J, K, L>(
-  initial: A,
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
-  f11: Oper<K, L>,
-): L;
-export function seq<A, B, C, D, E, F, G, H, I, J, K, L, M>(
-  initial: A,
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
-  f11: Oper<K, L>,
-  f12: Oper<L, M>,
-): M;
 
-export function seq(acc: unknown, ...fns: UnknownFn[]): unknown {
-  for (let i = 0; i < fns.length; i++) acc = fns[i]!(acc);
-  return acc;
+export function seq(
+  v: unknown,
+  f1: any,
+  f2?: any,
+  f3?: any,
+  f4?: any,
+  f5?: any,
+  f6?: any,
+  f7?: any,
+  f8?: any,
+): unknown {
+  const opCount =
+    (f1 ? 1 : 0)
+    + (f2 ? 1 : 0)
+    + (f3 ? 1 : 0)
+    + (f4 ? 1 : 0)
+    + (f5 ? 1 : 0)
+    + (f6 ? 1 : 0)
+    + (f7 ? 1 : 0)
+    + (f8 ? 1 : 0);
+  if (!IS_PROD)
+    assertOpsArgs("seq", [f1, f2, f3, f4, f5, f6, f7, f8], 1, opCount);
+  if (opCount === 1) return f1(v);
+  if (opCount === 2) return f2(f1(v));
+  if (opCount === 3) return f3(f2(f1(v)));
+  if (opCount === 4) return f4(f3(f2(f1(v))));
+  if (opCount === 5) return f5(f4(f3(f2(f1(v)))));
+  if (opCount === 6) return f6(f5(f4(f3(f2(f1(v))))));
+  if (opCount === 7) return f7(f6(f5(f4(f3(f2(f1(v)))))));
+  return f8(f7(f6(f5(f4(f3(f2(f1(v))))))));
 }
