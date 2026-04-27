@@ -1,6 +1,6 @@
 import type { SafeExecutionError } from "#result/execution.error.js";
-import { mapErrSafely } from "#result/internal.js";
-import { tryCatch } from "#utility/tryCatch.js";
+import { mapErrSafely } from "#result/types.internal.js";
+import { tryCatch } from "#utility/throw/tryCatch.js";
 import { err, ok, type Result } from "../../primitive.js";
 
 export const fromTry =

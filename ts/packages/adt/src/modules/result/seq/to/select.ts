@@ -6,4 +6,4 @@ export const selectOr =
 export const selectElse =
   <E, RO, RE = RO>(okValue: RO, onErr: (errInner: E) => RE) =>
   <T>(result: Result<T, E>): RO | RE =>
-    result.ok === true ? okValue : onErr(result.error);
+    result.ok === true ? okValue : onErr(result.err);

@@ -1,4 +1,4 @@
-export const tryCatch = <T = void, C = T>(
+export const tryCatch = <T, C>(
   tryFn: () => T,
   catchFn: (cause: unknown) => C,
 ): T | C => {
@@ -8,13 +8,13 @@ export const tryCatch = <T = void, C = T>(
     return catchFn(cause);
   }
 };
-export const tryCatchAsync = async <T = void, C = T>(
+export const tryCatchAsync = async <T, C>(
   tryFn: () => Promise<T>,
-  catchFn: (cause: unknown) => Promise<C> | C,
+  catchFn: (cause: unknown) => C,
 ): Promise<T | C> => {
   try {
     return await tryFn();
   } catch (cause) {
-    return await catchFn(cause);
+    return catchFn(cause);
   }
 };

@@ -8,12 +8,12 @@ export type DeadCodeError<Reason extends string> = {
 export type CheckExistence<T, FailMsg extends string> = [T] extends [never]
   ? DeadCodeError<FailMsg>
   : unknown;
-export type OkDefined<T> = CheckExistence<
+export type OkNotNever<T> = CheckExistence<
   T,
   "❌ Mapping Ok on a guaranteed error"
 >;
 
-export type ErrDefined<E> = CheckExistence<
+export type ErrNotNever<E> = CheckExistence<
   E,
   "❌ Mapping Err on guaranteed success"
 >;

@@ -11,18 +11,18 @@ export class SafeExecutionError extends Error {
     this.mapperError = mapperError;
     Object.setPrototypeOf(this, SafeExecutionError.prototype);
     if (
-      "captureStackTrace" in Error &&
-      typeof Error.captureStackTrace === "function"
+      "captureStackTrace" in Error
+      && typeof Error.captureStackTrace === "function"
     )
       Error.captureStackTrace(this, SafeExecutionError);
   }
 }
 
 export const isSafeExecutionError = (e: unknown): e is SafeExecutionError =>
-  e instanceof SafeExecutionError ||
-  (typeof e === "object" &&
-    !!e &&
-    "kind" in e &&
-    e.kind === "SafeExecution" &&
-    "name" in e &&
-    e.name === "SafeExecutionError");
+  e instanceof SafeExecutionError
+  || (typeof e === "object"
+    && !!e
+    && "kind" in e
+    && e.kind === "SafeExecution"
+    && "name" in e
+    && e.name === "SafeExecutionError");

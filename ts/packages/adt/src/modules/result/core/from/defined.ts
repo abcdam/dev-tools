@@ -1,30 +1,22 @@
-import {
-  isNotFalsy,
-  isNotNullish,
-  type NeverFalsy,
-  type NeverNullOrUndefined,
-} from "#utility/guard.js";
+import type { Defined, Truthy } from "#utility/guard/guard.js";
 import { err, ok, type Result } from "../../primitive.js";
 
 export const definedOr = <T, E>(
   input: T,
   errValue: E,
-): Result<NeverNullOrUndefined<T>, E> =>
-  isNotNullish(input) ? ok(input) : err(errValue);
+): Result<Defined<T>, E> =>
+  input != null ? ok(input as Defined<T>) : err(errValue);
 
 export const definedElse = <T, E>(
   input: T,
   errFn: (value: T) => E,
-): Result<NeverNullOrUndefined<T>, E> =>
-  isNotNullish(input) ? ok(input) : err(errFn(input));
+): Result<Defined<T>, E> =>
+  input != null ? ok(input as Defined<T>) : err(errFn(input));
 
-export const truthyOr = <T, E>(
-  input: T,
-  errValue: E,
-): Result<NeverFalsy<T>, E> => (isNotFalsy(input) ? ok(input) : err(errValue));
+export const truthyOr = <T, E>(input: T, errValue: E): Result<Truthy<T>, E> =>
+  input ? ok(input as Truthy<T>) : err(errValue);
 
 export const truthyElse = <T, E>(
   input: T,
   errFn: (value: T) => E,
-): Result<NeverFalsy<T>, E> =>
-  isNotFalsy(input) ? ok(input) : err(errFn(input));
+): Result<Truthy<T>, E> => (input ? ok(input as Truthy<T>) : err(errFn(input)));

@@ -1,5 +1,6 @@
+import { _NONE } from "#option/construct.internal.js";
 import type { Result } from "#result/primitive.js";
-import { none, type Option, some } from "../../primitive.js";
+import { type Option, some } from "../../primitive.js";
 
-export const fromResult = <T, E>(result: Result<T, E>): Option<T> =>
-  result.ok === true ? some(result.value) : none();
+export const takeOk = <T, E>(result: Result<T, E>): Option<T> =>
+  result.ok === true ? some(result.val) : _NONE;

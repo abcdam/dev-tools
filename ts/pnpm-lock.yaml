@@ -12,6 +12,9 @@ catalogs:
     '@types/node':
       specifier: ^25.5.0
       version: 25.5.0
+    magic-string:
+      specifier: 'catalog:'
+      version: 0.30.21
     tsup:
       specifier: ^8.5.1
       version: 8.5.1
@@ -44,6 +47,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 25.5.0
+      magic-string:
+        specifier: 'catalog:'
+        version: 0.30.21
       tsup:
         specifier: 'catalog:'
         version: 8.5.1(tsx@4.21.0)(typescript@5.9.3)

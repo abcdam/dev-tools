@@ -2,135 +2,138 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { none, type Option } from "#option/primitive.js";
-import type { GuardFn } from "#utility/guard.js";
+// biome-ignore-all assist/source/organizeImports: haltsmaul
 
-export function filter<V, R1 extends V>(
-  ...guards: [g1: GuardFn<V, R1>]
-): (option: Option<V>) => Option<R1>;
+import type { Option, BaseOption } from "#option/primitive.js";
+import { _NONE } from "#option/construct.internal.js";
+import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
 
-export function filter<V, R1 extends V, R2 extends Exclude<V, R1>>(
-  ...guards: [g1: GuardFn<V, R1>, g2: GuardFn<Exclude<V, R1>, R2>]
-): (option: Option<V>) => Option<R1 | R2>;
+export function filter<T, U1 extends T>(
+  ...guards: [g1: GuardFn<T, U1>]
+): (option: Option<T>) => Option<U1>;
 
-export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
->(
-  ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-  ]
-): (option: Option<V>) => Option<R1 | R2 | R3>;
+export function filter<T, U1 extends T, U2 extends Exclude<T, U1>>(
+  ...guards: [g1: GuardFn<T, U1>, g2: GuardFn<Exclude<T, U1>, U2>]
+): (option: Option<T>) => Option<U1 | U2>;
 
 export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
 >(
   ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
   ]
-): (option: Option<V>) => Option<R1 | R2 | R3 | R4>;
+): (option: Option<T>) => Option<U1 | U2 | U3>;
 
 export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
 >(
   ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
   ]
-): (option: Option<V>) => Option<R1 | R2 | R3 | R4 | R5>;
+): (option: Option<T>) => Option<U1 | U2 | U3 | U4>;
 
 export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
 >(
   ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
   ]
-): (option: Option<V>) => Option<R1 | R2 | R3 | R4 | R5 | R6>;
+): (option: Option<T>) => Option<U1 | U2 | U3 | U4 | U5>;
 
 export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
 >(
   ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
   ]
-): (option: Option<V>) => Option<R1 | R2 | R3 | R4 | R5 | R6 | R7>;
+): (option: Option<T>) => Option<U1 | U2 | U3 | U4 | U5 | U6>;
 
 export function filter<
-  V,
-  R1 extends V,
-  R2 extends Exclude<V, R1>,
-  R3 extends Exclude<V, R1 | R2>,
-  R4 extends Exclude<V, R1 | R2 | R3>,
-  R5 extends Exclude<V, R1 | R2 | R3 | R4>,
-  R6 extends Exclude<V, R1 | R2 | R3 | R4 | R5>,
-  R7 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>,
-  R8 extends Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>,
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
 >(
   ...guards: [
-    g1: GuardFn<V, R1>,
-    g2: GuardFn<Exclude<V, R1>, R2>,
-    g3: GuardFn<Exclude<V, R1 | R2>, R3>,
-    g4: GuardFn<Exclude<V, R1 | R2 | R3>, R4>,
-    g5: GuardFn<Exclude<V, R1 | R2 | R3 | R4>, R5>,
-    g6: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5>, R6>,
-    g7: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6>, R7>,
-    g8: GuardFn<Exclude<V, R1 | R2 | R3 | R4 | R5 | R6 | R7>, R8>,
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
   ]
-): (option: Option<V>) => Option<R1 | R2 | R3 | R4 | R5 | R6 | R7 | R8>;
+): (option: Option<T>) => Option<U1 | U2 | U3 | U4 | U5 | U6 | U7>;
 
-export function filter<V>(
-  ...predicates: Array<(input: V) => boolean>
-): (option: Option<V>) => Option<V>;
+export function filter<
+  T,
+  U1 extends T,
+  U2 extends Exclude<T, U1>,
+  U3 extends Exclude<T, U1 | U2>,
+  U4 extends Exclude<T, U1 | U2 | U3>,
+  U5 extends Exclude<T, U1 | U2 | U3 | U4>,
+  U6 extends Exclude<T, U1 | U2 | U3 | U4 | U5>,
+  U7 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>,
+  U8 extends Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>,
+>(
+  ...guards: [
+    g1: GuardFn<T, U1>,
+    g2: GuardFn<Exclude<T, U1>, U2>,
+    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g8: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
+  ]
+): (option: Option<T>) => Option<U1 | U2 | U3 | U4 | U5 | U6 | U7 | U8>;
 
-export function filter(...predicates: any[]) {
-  return (option: any) => {
+export function filter<T>(
+  ...predicates: [PredicateFn<T>, ...PredicateFn<T>[]]
+): (option: Option<T>) => Option<T>;
+
+export function filter(...fns: any[]) {
+  const limit = fns.length;
+  return (option: BaseOption) => {
     if (option.exists === false) return option;
-    const v = option.value;
-    const limit = predicates.length;
-    for (let i = 0; i < limit; i++) if (predicates[i](v)) return option;
-    return none();
+    const v = option.val;
+    for (let i = 0; i < limit; i++) if (fns[i](v)) return option;
+    return _NONE;
   };
 }
