@@ -25,18 +25,20 @@ export const assertOpsArgs = (
   minLength: number,
   opCount: number,
 ): void => {
-  if (opCount < minLength)
-    throw new TypeError(
-      `[abcd/adt] ${fnSym}: argument count violation. Expected: ${minLength} or more, got: ${opCount}`,
-    );
+  if (opCount < minLength) {
+    const msg = `[abcd/adt] ${fnSym}: argument count violation. Expected: ${minLength} or more, got: ${opCount}`;
+    console.error(msg);
+    throw new TypeError(msg);
+  }
   let sawWeirdness = false;
   ops.forEach((o, idx) => {
     const type = typeof o;
     const isFn = type === "function";
-    if (isFn && sawWeirdness)
-      throw new TypeError(
-        `[abcd/adt] ${fnSym}: invalid argument type at position ${idx}. Expected: function, got: ${type}`,
-      );
+    if (isFn && sawWeirdness) {
+      const msg = `[abcd/adt] ${fnSym}: invalid argument type at position ${idx}. Expected: function, got: ${type}`;
+      console.error(msg);
+      throw new TypeError(msg);
+    }
     sawWeirdness = !isFn;
   });
 };

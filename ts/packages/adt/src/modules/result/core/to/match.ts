@@ -14,7 +14,7 @@ export const match = <T, E, RO, RE>(
   result: Result<T, E>,
   handle: MatchHandler<T, E, RO, RE>,
 ): RO | RE =>
-  result.ok === true ? handle.Ok(result.value) : handle.Err(result.error);
+  result.ok === true ? handle.Ok(result.val) : handle.Err(result.err);
 
 export const matchSafe = <T, E, RO, RE, RP>(
   result: Result<T, E>,

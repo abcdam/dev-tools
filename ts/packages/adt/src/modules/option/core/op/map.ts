@@ -1,4 +1,4 @@
-import { _NONE } from "#option/const.js";
+import { _NONE } from "#option/construct.internal.js";
 import { type Option, some } from "../../primitive.js";
 
 export const map = <T1, T2 = T1>(

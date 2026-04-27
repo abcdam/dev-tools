@@ -1,4 +1,4 @@
-import { assertOpsArgs, type UnknownFn } from "./internal.js";
+import { assertOpsArgs } from "./internal.js";
 import type { Oper } from "./types.js";
 
 /**

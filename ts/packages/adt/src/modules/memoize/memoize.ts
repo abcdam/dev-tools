@@ -1,5 +1,5 @@
 import type { Result } from "#result/primitive.js";
-import { isPromiseLike } from "#utility/guard.js";
+import { isPromiseLike } from "#utility/guard/guard.js";
 
 import type { CachePolicy } from "./types.js";
 
@@ -14,7 +14,7 @@ const createPolicedCache = <T, E, Metadata>(
   let cached: Cache<T, E, Metadata>;
   const maybeUpdateCache = (result: Result<T, E>): void => {
     const metadata = policy.updateMetadata(result);
-    if (metadata.exists) cached = { result, metadata: metadata.value };
+    if (metadata.exists) cached = { result, metadata: metadata.val };
   };
   return {
     isValid: () => !!cached && policy.isFresh(cached.metadata),

@@ -1,4 +1,4 @@
-import { _NONE } from "#option/const.js";
+import { _NONE } from "#option/construct.internal.js";
 import type { None, Option } from "../../primitive.js";
 export const andThen: <T1, T2 = T1>(
   mapFn: (val: T1) => Option<T2>,

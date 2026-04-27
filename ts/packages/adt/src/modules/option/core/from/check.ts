@@ -6,8 +6,8 @@
 
 import { some } from "#option/primitive.js";
 import type { Option, BaseOption } from "#option/primitive.js";
-import { _NONE } from "#option/const.js";
-import type { GuardFn, PredicateFn } from "#utility/guard.js";
+import { _NONE } from "#option/construct.internal.js";
+import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
 
 export function check<T, U1 extends T>(
   data: T,

@@ -1,4 +1,4 @@
-import { isPromiseLike } from "#utility/guard.js";
+import { isPromiseLike } from "#utility/guard/guard.js";
 import {
   _chain1,
   _chain2,
@@ -214,7 +214,6 @@ export function operAsync(
       if (isPromiseLike(r)) return handleTail(_chain3(r, f4, f5, f6));
       r = f4(r);
       if (isPromiseLike(r)) return handleTail(_chain2(r, f5, f6));
-
       r = f5(r);
       if (isPromiseLike(r)) return handleTail(_chain1(r, f6));
       return handleop7Plus(f6(r));

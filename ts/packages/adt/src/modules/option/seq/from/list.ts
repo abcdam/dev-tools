@@ -1,4 +1,4 @@
-import { _NONE } from "#option/const.js";
+import { _NONE } from "#option/construct.internal.js";
 import { type Option, some } from "../../primitive.js";
 
 export function find<T, U extends T>(

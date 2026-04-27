@@ -4,6 +4,7 @@ packages:
 catalog:
   '@biomejs/biome': 2.4.7
   '@types/node': ^25.5.0
+  magic-string: 'catalog:'
   tsup: ^8.5.1
   tsx: ^4.21.0
   typescript: 5.9.3

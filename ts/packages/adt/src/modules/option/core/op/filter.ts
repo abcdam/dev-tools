@@ -5,8 +5,8 @@
 // biome-ignore-all assist/source/organizeImports: haltsmaul
 
 import type { Option, BaseOption } from "#option/primitive.js";
-import { _NONE } from "#option/const.js";
-import type { GuardFn, PredicateFn } from "#utility/guard.js";
+import { _NONE } from "#option/construct.internal.js";
+import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
 
 export function filter<T, U1 extends T>(
   option: Option<T>,

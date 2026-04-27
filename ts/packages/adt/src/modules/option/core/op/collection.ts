@@ -1,4 +1,4 @@
-import { _NONE } from "#option/const.js";
+import { _NONE } from "#option/construct.internal.js";
 import {
   type BaseOption,
   type InferSome,

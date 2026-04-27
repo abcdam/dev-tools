@@ -1,38 +1,43 @@
-import type { BaseOption, None, Some } from "./primitive.js";
+/** biome-ignore-all lint/complexity/useArrowFunction: <'this' required> */
+import { configureSealedProtos, FREEZE } from "../proto-setup.js";
+import type {
+  BaseOption,
+  InferSome,
+  None as NoneT,
+  Option,
+  Some as SomeT,
+} from "./primitive.js";
 
-interface SomeConstructor {
-  new <T>(v: T): Some<T>;
+export interface OptionProto<O extends BaseOption> {
+  readonly exists: O["exists"];
+  toJSON(this: O): Option<InferSome<O>>;
 }
-interface NoneConstructor {
-  new (): None;
+export interface SomeConstructor {
+  new <T>(val: T): SomeT<T>;
+  readonly prototype: OptionProto<SomeT<unknown>>;
+}
+export interface NoneConstructor {
+  new (): NoneT;
+  readonly prototype: OptionProto<NoneT>;
 }
 
-const [S, N] = /*#__PURE__*/ (() => {
-  function Some(this: BaseOption, v: unknown) {
-    (this as any).val = v;
-  }
-  function None() {}
+// this is necessary for pojo handling at the boundery (e.g. JSON.stringify).
+// for deserialization, we can rely on the fact that the library implementation
+//  is fully backwards compatible:
+//  all opt -> opt mapper functions automatically rehydrate passed in option pojos
+export const _toJSON = function <T>(this: Option<T>): Option<T> {
+  // biome-ignore lint/complexity/noUselessThisAlias: <shake tree>
+  const self = this;
+  const exists = self.exists;
+  return exists ? { exists: exists, val: self.val } : { exists: exists };
+};
 
-  // this is necessary for pojo handling at the boundery (e.g. JSON.stringify).
-  // for deserialization, we can rely on the fact that the library implementation
-  //  is fully backwards compatible:
-  //  all opt -> opt mapper functions automatically rehydrate passed in option pojos
-  const toJSON = function (this: BaseOption) {
-    return this.exists ? { exists: true, val: this.val } : { exists: false };
-  };
-  const T = ["None", "Some"];
-  // prototype config
-  [None, Some].forEach((ctor, i) => {
-    const p = ctor.prototype;
-    p.exists = !!i;
-    // TODO: evaluate usefulnes
-    p[Symbol.toStringTag] = T[i];
-    p.toJSON = toJSON;
-    Object.freeze(p);
-  });
+const None = function () {} as unknown as NoneConstructor;
+const Some = function <T>(this: SomeT<T>, val: T) {
+  //@ts-expect-error readonly
+  this.val = val;
+} as unknown as SomeConstructor;
 
-  return [Some, None] as unknown as [SomeConstructor, NoneConstructor];
-})();
-
-export const _S: SomeConstructor = S;
-export const _N: NoneConstructor = N;
+configureSealedProtos("exists", [None, Some], _toJSON);
+export const _Some: SomeConstructor = Some;
+export const _NONE: NoneT = /*#__PURE__*/ FREEZE(new None());

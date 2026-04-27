@@ -1,4 +1,5 @@
-export type AnyFunction = (...args: any[]) => unknown;
+// biome-ignore lint/complexity/noBannedTypes: <ok for type exclusions>
+export type AnyFunction = Function;
 
 export type Expect<T extends true> = T;
 // biome-ignore format: readability

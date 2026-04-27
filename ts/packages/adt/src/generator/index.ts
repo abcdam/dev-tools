@@ -14,7 +14,7 @@ const PRIM_DEF = {
   subTy: "U",
 } as const;
 
-const adtSymbolDef = ((d) =>
+const adtSymbolDef = (d =>
   ({
     ...d,
     resultType: `Result<${d.okType}, ${d.errType}1>`,
@@ -56,6 +56,7 @@ interface AdtData<Adt extends AdtVariant, Kind extends ImplVariant> {
   adt: Adt;
   kind: Kind;
   primary: SymTypeDef;
+  baseType: string;
 }
 
 interface OptionData<Variant extends ImplVariant>
@@ -98,11 +99,11 @@ const defineResultSpec = (
   secondary: SymTypeDef,
   namespace: "from" | "op",
 ) =>
-  implVariants.map((kind) =>
+  implVariants.map(kind =>
     defineSpec(
       fnSymbol,
       [adtSymbolDef.okType, adtSymbolDef.errType],
-      { adt: "result", kind, primary, secondary },
+      { adt: "result", kind, primary, secondary, baseType: "BaseResult" },
       `Result<UNION_PLACEHOLDER, UNION_ERR_PLACEHOLDER>`,
       buildOutPath("result", fnSymbol, kind, namespace),
     ),
@@ -112,11 +113,11 @@ const defineOptionSpec = (
   primary: SymTypeDef,
   namespace: "from" | "op",
 ) =>
-  implVariants.map((kind) =>
+  implVariants.map(kind =>
     defineSpec(
       fnSymbol,
       [adtSymbolDef.okType],
-      { adt: "option", kind, primary },
+      { adt: "option", kind, primary, baseType: "BaseOption" },
       "Option<UNION_PLACEHOLDER>",
       buildOutPath("option", fnSymbol, kind, namespace),
     ),
@@ -224,7 +225,7 @@ function getImplementation(spec: Spec): string {
 
   if (!isDataLast)
     implArgs.push(
-      toSymTypeDecl({ ...spec.dataDef.primary, ty: BASE_TY_DEF.anyTy }),
+      toSymTypeDecl({ ...spec.dataDef.primary, ty: spec.dataDef.baseType }),
     );
 
   implArgs.push(`...${fnListSym}: any[]`);
@@ -234,7 +235,7 @@ function getImplementation(spec: Spec): string {
   const isOption = spec.dataDef.adt === "option";
   const isFilterFn = fn.startsWith("filter");
   const unwrapCircuit = isFilterFn
-    ? `if (${primaryName}.${isOption ? "exists" : "ok"} === false) return ${primaryName};\n const v = ${primaryName}.value;`
+    ? `if (${primaryName}.${isOption ? "exists" : "ok"} === false) return ${primaryName};\n const v = ${primaryName}.val;`
     : "";
   const failArg = isFilterFn ? "v" : primaryName;
   const failHandlerCall = fn.endsWith("Else") ? `(${failArg})` : "";
@@ -243,11 +244,11 @@ function getImplementation(spec: Spec): string {
     ? primaryName
     : `${isOption ? "some" : "ok"}(${primaryName})`;
   const loopImplShared = `for (let i = 0; i < limit; i++) if (${fnListSym}[i](${isFilterFn ? "v" : primaryName})) return ${onSuccessHandlerImpl};
-    return ${isOption ? "none()" : `err(${onFailHandlerImpl})`};
+    return ${isOption ? "_NONE" : `err(${onFailHandlerImpl})`};
     `;
 
   const logicClosureFnExpr = (...stmts: string[]) =>
-    `return (${primaryName}: any) => {${stmts.join("\n")}}`;
+    `return (${primaryName}: ${spec.dataDef.baseType}) => {${stmts.join("\n")}}`;
 
   return `${implDecl} {
   ${
@@ -320,15 +321,18 @@ function buildFileContent(outPath: string, chunks: string[]): string {
   const isFilter = outPath.includes("/filter");
   const imports = [
     isResult
-      ? `import { ${isFilter ? "" : "ok,"} err, type Result } from "#result/primitive.js";`
-      : `import { ${isFilter ? "" : "some,"} none, type Option } from "#option/primitive.js";`,
-    `import type { GuardFn, PredicateFn } from "#utility/guard.js";`,
+      ? `import { ${isFilter ? "" : "ok,"} err, type Result,type BaseResult  } from "#result/primitive.js";`
+      : `${isFilter ? "" : 'import { some } from "#option/primitive.js";'}
+      import type { Option, BaseOption } from "#option/primitive.js";
+      import { _NONE } from "#option/construct.internal.js";`,
+    `import type { GuardFn, PredicateFn } from "#utility/guard/index.js";`,
   ].join("\n");
 
   return `${[
     `////////////////////////////////////////////////////////////
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////`,
+    "// biome-ignore-all assist/source/organizeImports: haltsmaul",
     imports,
     ...chunks,
   ].join("\n\n")}\n`;

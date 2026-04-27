@@ -1,11 +1,6 @@
-import {
-  type Err,
-  err,
-  type InferOks,
-  ok,
-  type Result,
-} from "#result/primitive.js";
-import { collect } from "./collection.js";
+/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
+import type { Err, Result } from "#result/primitive.js";
+import { collect } from "../op/all.ts";
 
 type Expect<T extends true> = T;
 type Equal<X, Y> =

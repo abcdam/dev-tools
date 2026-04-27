@@ -1,4 +1,4 @@
-export type Oper<in In, out Out> = (input: In) => Out;
+export type Oper<in In, out Out> = (this: void, input: In) => Out;
 export type BaseOper = Oper<never, unknown>;
 export type InferIn<O extends BaseOper> =
   O extends Oper<infer In, any> ? In : never;

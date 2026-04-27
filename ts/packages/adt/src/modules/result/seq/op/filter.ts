@@ -2,8 +2,10 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { err, type Result } from "#result/primitive.js";
-import type { GuardFn, PredicateFn } from "#utility/guard.js";
+// biome-ignore-all assist/source/organizeImports: haltsmaul
+
+import { err, type Result, type BaseResult } from "#result/primitive.js";
+import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
 
 export function filterOr<T, E2, U1 extends T>(
   ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errValue: E2]
@@ -152,9 +154,9 @@ export function filterOr<T, E2>(
 export function filterOr(...fnsWithErrFallback: any[]) {
   const errValue = fnsWithErrFallback.pop();
   const limit = fnsWithErrFallback.length;
-  return (result: any) => {
+  return (result: BaseResult) => {
     if (result.ok === false) return result;
-    const v = result.value;
+    const v = result.val;
     for (let i = 0; i < limit; i++) if (fnsWithErrFallback[i](v)) return result;
     return err(errValue);
   };
@@ -307,9 +309,9 @@ export function filterElse<T, E2>(
 export function filterElse(...fnsWithErrFallback: any[]) {
   const errFn = fnsWithErrFallback.pop();
   const limit = fnsWithErrFallback.length;
-  return (result: any) => {
+  return (result: BaseResult) => {
     if (result.ok === false) return result;
-    const v = result.value;
+    const v = result.val;
     for (let i = 0; i < limit; i++) if (fnsWithErrFallback[i](v)) return result;
     return err(errFn(v));
   };

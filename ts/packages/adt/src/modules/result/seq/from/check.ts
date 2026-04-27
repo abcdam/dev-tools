@@ -2,8 +2,10 @@
 // ======    AUTO-GENERATED FILE. DO NOT EDIT.    ====== //
 //////////////////////////////////////////////////////////
 
-import { err, ok, type Result } from "#result/primitive.js";
-import type { GuardFn, PredicateFn } from "#utility/guard.js";
+// biome-ignore-all assist/source/organizeImports: haltsmaul
+
+import { ok, err, type Result, type BaseResult } from "#result/primitive.js";
+import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
 
 export function checkOr<T, E, U1 extends T>(
   ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errValue: E]
@@ -148,7 +150,7 @@ export function checkOr<T, E>(
 export function checkOr(...fnsWithErrFallback: any[]) {
   const errValue = fnsWithErrFallback.pop();
   const limit = fnsWithErrFallback.length;
-  return (data: any) => {
+  return (data: BaseResult) => {
     for (let i = 0; i < limit; i++)
       if (fnsWithErrFallback[i](data)) return ok(data);
     return err(errValue);
@@ -298,7 +300,7 @@ export function checkElse<T, E>(
 export function checkElse(...fnsWithErrFallback: any[]) {
   const errFn = fnsWithErrFallback.pop();
   const limit = fnsWithErrFallback.length;
-  return (data: any) => {
+  return (data: BaseResult) => {
     for (let i = 0; i < limit; i++)
       if (fnsWithErrFallback[i](data)) return ok(data);
     return err(errFn(data));
