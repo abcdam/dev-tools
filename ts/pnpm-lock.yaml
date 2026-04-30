@@ -13,7 +13,7 @@ catalogs:
       specifier: ^25.5.0
       version: 25.5.0
     magic-string:
-      specifier: 'catalog:'
+      specifier: ^0.30.21
       version: 0.30.21
     tsup:
       specifier: ^8.5.1

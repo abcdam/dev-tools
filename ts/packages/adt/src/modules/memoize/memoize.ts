@@ -1,5 +1,5 @@
 import type { Result } from "#result/primitive.js";
-import { isPromiseLike } from "#utility/guard/guard.js";
+import { isPromiseLike } from "#utility/guard/index.js";
 
 import type { CachePolicy } from "./types.js";
 

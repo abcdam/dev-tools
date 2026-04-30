@@ -1,5 +1,5 @@
 import { err, ok, type Result } from "../../primitive.js";
-import type { ErrNotNever, OkNotNever } from "../../types.internal.js";
+import type { ErrNotNever, OkNotNever } from "../../result.internal.js";
 
 export const map = <T1, T2, E>(
   result: Result<T1, E> & OkNotNever<T1>,

@@ -1,5 +1,5 @@
 import { fromTry, fromTryAsync } from "#result/core/from/try.js";
-import type { OkNotNever } from "#result/types.internal.js";
+import type { OkNotNever } from "#result/result.internal.js";
 import type { Result } from "../../primitive.js";
 
 export const andThen = <T1, E1, T2 = T1, E2 = never>(

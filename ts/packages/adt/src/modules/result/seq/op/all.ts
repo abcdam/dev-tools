@@ -1,23 +1,24 @@
-import type { BaseResult, Result } from "#result/primitive.js";
+import type { Result, ResultBase } from "#result/primitive.js";
+import type { OperThink, OperWho } from "#utility/types/oper.js";
 
 type BaseReturnCompact = unknown[];
 type TapUnknownFn = (errValue: unknown) => void;
 
 const _fromListTappedCollect = (
-  results: BaseResult[],
+  results: ResultBase[],
   tapFn: TapUnknownFn,
 ): BaseReturnCompact => {
   const oks = [];
   const limit = results.length;
   for (let i = 0; i < limit; i++) {
-    const item = results[i] as BaseResult;
+    const item = results[i] as ResultBase;
     if (item.ok) oks.push(item.val);
     else tapFn(item.err);
   }
   return oks;
 };
 const _fromIterTappedCollect = (
-  results: Iterable<BaseResult>,
+  results: Iterable<ResultBase>,
   tapFn: TapUnknownFn,
 ): BaseReturnCompact => {
   const oks = [];
@@ -28,19 +29,19 @@ const _fromIterTappedCollect = (
 };
 
 export function collectTapped<E>(
-  tapErr: (errValue: E) => void,
+  think: OperThink<E>,
 ): <T>(results: Result<T, E>) => T[];
 
 export function collectTapped<E>(
-  tapErr: (errValue: E) => void,
+  think: OperThink<E>,
 ): <T>(results: Iterable<Result<T, E>>) => T[];
 
 export function collectTapped(
-  tapErr: TapUnknownFn,
+  think: OperWho<void>,
 ): (results: any) => BaseReturnCompact {
   return results => {
     return Array.isArray(results)
-      ? _fromListTappedCollect(results, tapErr)
-      : _fromIterTappedCollect(results, tapErr);
+      ? _fromListTappedCollect(results, think)
+      : _fromIterTappedCollect(results, think);
   };
 }

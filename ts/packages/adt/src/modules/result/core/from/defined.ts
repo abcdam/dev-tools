@@ -1,4 +1,4 @@
-import type { Defined, Truthy } from "#utility/guard/guard.js";
+import type { Defined, Truthy } from "#utility/types/guard.js";
 import { err, ok, type Result } from "../../primitive.js";
 
 export const definedOr = <T, E>(

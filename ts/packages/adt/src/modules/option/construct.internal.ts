@@ -1,14 +1,14 @@
 /** biome-ignore-all lint/complexity/useArrowFunction: <'this' required> */
 import { configureSealedProtos, FREEZE } from "../proto-setup.js";
 import type {
-  BaseOption,
   InferSome,
   None as NoneT,
   Option,
+  OptionBase,
   Some as SomeT,
 } from "./primitive.js";
 
-export interface OptionProto<O extends BaseOption> {
+export interface OptionProto<O extends OptionBase> {
   readonly exists: O["exists"];
   toJSON(this: O): Option<InferSome<O>>;
 }

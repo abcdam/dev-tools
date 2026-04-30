@@ -2,14 +2,15 @@
   "$schema": "https://www.schemastore.org/package",
   "type": "module",
   "name": "@abcd/adt",
-  "version": "0.4.0",
+  "version": "0.4.5",
   "description": "",
   "imports": {
     "#result/*": "./src/modules/result/*",
     "#utility/*": "./src/modules/utility/*",
     "#option/*": "./src/modules/option/*",
     "#compose/*": "./src/modules/compose/*",
-    "#branch/*": "./src/modules/branch/*"
+    "#branch/*": "./src/modules/branch/*",
+    "#intern/*": "./src/internal/*.ts"
   },
   "exports": {
     "./*": {

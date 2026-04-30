@@ -1,30 +1,30 @@
-import type { BaseOption, InferSome, Option } from "#option/primitive.js";
+import type { InferSome, Option, OptionBase } from "#option/primitive.js";
 
 type AllReturn = unknown[];
-const _fromList = (options: BaseOption[], limit: number): AllReturn => {
+const _fromList = (options: OptionBase[], limit: number): AllReturn => {
   const allSomes = [];
   for (let i = 0; i < limit; i++) {
-    const option = options[i] as BaseOption;
+    const option = options[i] as OptionBase;
     if (option.exists === true) allSomes.push(option.val);
   }
   return allSomes;
 };
-const _fromIter = (options: Iterable<BaseOption>): AllReturn => {
+const _fromIter = (options: Iterable<OptionBase>): AllReturn => {
   const allSomes = [];
   for (const option of options)
     if (option.exists === true) allSomes.push(option.val);
   return allSomes;
 };
 
-export function sift<const T extends readonly BaseOption[]>(
+export function sift<const T extends readonly OptionBase[]>(
   options: T,
 ): InferSome<T[number]>[];
 
-export function sift<U extends BaseOption>(
+export function sift<U extends OptionBase>(
   options: Iterable<U>,
 ): InferSome<U>[];
 
-export function sift(options: BaseOption[] | Iterable<BaseOption>): AllReturn {
+export function sift(options: OptionBase[] | Iterable<OptionBase>): AllReturn {
   return Array.isArray(options)
     ? _fromList(options, options.length)
     : _fromIter(options);

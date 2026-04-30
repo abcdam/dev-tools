@@ -1,13 +1,13 @@
+import type { OperThunk } from "#compose/index.js";
 import type { Option } from "../../primitive.js";
 
+type Select<out Out> = <T>(o: Option<T>) => Out;
 export const selectOr: <R0, R1>(
-  onSome: R0,
-  onNone: R1,
-) => <T>(o: Option<T>) => R0 | R1 = (sv, nv) => opt =>
-  opt.exists === true ? sv : nv;
+  replaceSome: R0,
+  replaceNone: R1,
+) => Select<R0 | R1> = (sv, nv) => opt => (opt.exists === true ? sv : nv);
 
 export const selectElse: <R0, R1>(
-  onSome: R0,
-  onNoneFn: () => R1,
-) => <T>(o: Option<T>) => R0 | R1 = (sv, nvFn) => opt =>
-  opt.exists === true ? sv : nvFn();
+  replaceSome: R0,
+  noneOp: OperThunk<R1>,
+) => Select<R0 | R1> = (sv, nvFn) => opt => (opt.exists === true ? sv : nvFn());

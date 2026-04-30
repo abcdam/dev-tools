@@ -12,7 +12,8 @@
       "#branch/*": ["./src/modules/branch/*"],
       "#result/*": ["./src/modules/result/*"],
       "#utility/*": ["./src/modules/utility/*"],
-      "#compose/*": ["./src/modules/compose/*"]
+      "#compose/*": ["./src/modules/compose/*"],
+      "#intern/*": ["./src/internal/*.ts"]
     }
   },
   "include": ["src/**/*"],

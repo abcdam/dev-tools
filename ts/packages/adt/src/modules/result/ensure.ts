@@ -1,5 +1,5 @@
 import { _toJSON, type ResultProto } from "./construct.internal.js";
-import { type BaseResult, err, ok, type Result } from "./primitive.js";
+import { err, ok, type Result, type ResultBase } from "./primitive.js";
 
 /**
  * #### What:
@@ -20,7 +20,7 @@ export function ensureResult<EFallback, T = unknown, E = unknown>(
   input: unknown,
   fallback: EFallback,
 ): Result<T, E | EFallback>;
-export function ensureResult(input: unknown, fallback: unknown): BaseResult {
+export function ensureResult(input: unknown, fallback: unknown): ResultBase {
   if (typeof input !== "object" || input === null) return err(fallback);
   const r = input as { ok?: unknown; err?: unknown; val?: unknown };
   const okk = r.ok;

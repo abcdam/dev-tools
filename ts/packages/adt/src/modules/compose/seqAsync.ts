@@ -1,14 +1,9 @@
-/** biome-ignore-all lint/suspicious/noDoubleEquals: <intended> */
-import { NULL, STR_FUNCTION } from "#utility/guard/guard.js";
-import {
-  _toPromise,
-  assertOpsArgs,
-  type OperAwaitable,
-  type UnknownFn,
-  type UnknP,
-} from "./internal.js";
-import type { OperAsync } from "./types.js";
+import type { OperAwaitable, OperUnknown, PromUnknown } from "#intern/types";
+import { typeOf } from "#utility/guard/index.js";
+import type { Oper } from "#utility/types/oper.js";
+import { assertOpsArgs, F_PROM_RSLV } from "./internal.js";
 
+type MaybeReturns = PromiseLike<unknown> | null | undefined;
 /**
  *
  *
@@ -21,174 +16,162 @@ import type { OperAsync } from "./types.js";
  */
 export function seqAsync<A, B, C>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
 ): Promise<Awaited<C>>;
 export function seqAsync<A, B, C, D>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
 ): Promise<Awaited<D>>;
 export function seqAsync<A, B, C, D, E>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
 ): Promise<E>;
 export function seqAsync<A, B, C, D, E, F>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
 ): Promise<F>;
 export function seqAsync<A, B, C, D, E, F, G>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
 ): Promise<G>;
 export function seqAsync<A, B, C, D, E, F, G, H>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
 ): Promise<H>;
 export function seqAsync<A, B, C, D, E, F, G, H, I>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
-  f8: OperAwaitable<H, I>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
+  op8: OperAwaitable<H, I>,
 ): Promise<I>;
 export function seqAsync<A, B, C, D, E, F, G, H, I, J>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
-  f8: OperAwaitable<H, I>,
-  f9: OperAwaitable<I, J>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
+  op8: OperAwaitable<H, I>,
+  op9: OperAwaitable<I, J>,
 ): Promise<J>;
 export function seqAsync<A, B, C, D, E, F, G, H, I, J, K>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
-  f8: OperAwaitable<H, I>,
-  f9: OperAwaitable<I, J>,
-  f10: OperAwaitable<J, K>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
+  op8: OperAwaitable<H, I>,
+  op9: OperAwaitable<I, J>,
+  op10: OperAwaitable<J, K>,
 ): Promise<K>;
 export function seqAsync<A, B, C, D, E, F, G, H, I, J, K, L>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
-  f8: OperAwaitable<H, I>,
-  f9: OperAwaitable<I, J>,
-  f10: OperAwaitable<J, K>,
-  f11: OperAwaitable<K, L>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
+  op8: OperAwaitable<H, I>,
+  op9: OperAwaitable<I, J>,
+  op10: OperAwaitable<J, K>,
+  op11: OperAwaitable<K, L>,
 ): Promise<L>;
 export function seqAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   initial: A,
-  f1: OperAwaitable<A, B>,
-  f2: OperAwaitable<B, C>,
-  f3: OperAwaitable<C, D>,
-  f4: OperAwaitable<D, E>,
-  f5: OperAwaitable<E, F>,
-  f6: OperAwaitable<F, G>,
-  f7: OperAwaitable<G, H>,
-  f8: OperAwaitable<H, I>,
-  f9: OperAwaitable<I, J>,
-  f10: OperAwaitable<J, K>,
-  f11: OperAwaitable<K, L>,
-  f12: OperAwaitable<L, M>,
+  op1: OperAwaitable<A, B>,
+  op2: OperAwaitable<B, C>,
+  op3: OperAwaitable<C, D>,
+  op4: OperAwaitable<D, E>,
+  op5: OperAwaitable<E, F>,
+  op6: OperAwaitable<F, G>,
+  op7: OperAwaitable<G, H>,
+  op8: OperAwaitable<H, I>,
+  op9: OperAwaitable<I, J>,
+  op10: OperAwaitable<J, K>,
+  op11: OperAwaitable<K, L>,
+  op12: OperAwaitable<L, M>,
 ): Promise<M>;
 
 export function seqAsync(
-  r: unknown,
-  f1: any,
-  f2: any,
-  f3?: any,
-  f4?: any,
-  ...ops: any[]
-): UnknP {
+  r: MaybeReturns,
+  op1?: Oper<unknown, MaybeReturns>,
+  op2?: Oper<unknown, MaybeReturns>,
+  op3?: Oper<unknown, MaybeReturns>,
+  op4?: Oper<unknown, MaybeReturns>,
+  ...ops: Oper<unknown, MaybeReturns>[]
+): PromUnknown {
   const opCount =
-    (f1 ? 1 : 0) + (f2 ? 1 : 0) + (f3 ? 1 : 0) + (f4 ? 1 : 0) + ops.length;
+    (op1 ? 1 : 0) + (op2 ? 1 : 0) + (op3 ? 1 : 0) + (op4 ? 1 : 0) + ops.length;
 
-  if (!IS_PROD) assertOpsArgs("seqAsync", [f1, f2, f3, f4, ...ops], 2, opCount);
+  if (!IS_PROD)
+    assertOpsArgs("seqAsync", [op1, op2, op3, op4, ...ops], 2, opCount);
   try {
-    r =
-      r != NULL && typeof (r as any).then === STR_FUNCTION
-        ? (r as any).then(f1)
-        : f1(r);
-
-    r =
-      r != NULL && typeof (r as any).then === STR_FUNCTION
-        ? (r as any).then(f2)
-        : f2(r);
-
+    r = r != null && typeOf(r.then, 3) ? r.then(op1) : op1!(r);
+    r = r != null && typeOf(r.then, 3) ? r.then(op2) : op2!(r);
     if (opCount === 2) return Promise.resolve(r);
 
-    r =
-      r != NULL && typeof (r as any).then === STR_FUNCTION
-        ? (r as any).then(f3)
-        : f3!(r);
-
+    r = r != null && typeOf(r.then, 3) ? r.then(op3) : op3!(r);
     if (opCount === 3) return Promise.resolve(r);
 
-    r =
-      r != NULL && typeof (r as any).then === STR_FUNCTION
-        ? (r as any).then(f4)
-        : f4!(r);
-
+    r = r != null && typeOf(r.then, 3) ? r.then(op4) : op4!(r);
     if (opCount === 4) return Promise.resolve(r);
     else return _seqAsyncEager(r, ops);
   } catch (e) {
     return Promise.reject(e);
   }
 }
-export const _seqAsyncEager = (acc: unknown, fns: any[]): UnknP => {
+export const _seqAsyncEager = (
+  acc: MaybeReturns,
+  fns: Oper<unknown, MaybeReturns>[],
+): PromUnknown => {
   const totalLimit = fns.length;
   for (let i = 0; i < totalLimit; i++) {
-    if (acc != NULL && typeof (acc as any).then === STR_FUNCTION)
+    if (acc != null && typeOf(acc.then, 3))
       return _asyncTail(acc as any, fns, i);
-    else acc = fns[i](acc);
+    else acc = fns[i]!(acc);
   }
-  return _toPromise(acc);
+  return F_PROM_RSLV(acc);
 };
 export const _asyncTail = (
   pl: PromiseLike<unknown>,
-  fns: UnknownFn[],
+  fns: OperUnknown[],
   startIndex: number = 0,
 ): Promise<unknown> => {
   const opCount = fns.length;
-  let p = Promise.resolve(pl);
+  let p = F_PROM_RSLV(pl);
   for (let i = startIndex; i < opCount; i++) p = p.then(fns[i]);
   return p;
 };

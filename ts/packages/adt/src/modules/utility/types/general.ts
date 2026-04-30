@@ -1,29 +1,37 @@
-// biome-ignore lint/complexity/noBannedTypes: <ok for type exclusions>
-export type AnyFunction = Function;
+import type { AnyFunction } from "./guard.js";
 
 export type Expect<T extends true> = T;
+
 // biome-ignore format: readability
 export type IsEqual<A, B> =
   (<T>() => T extends A ? 1 : 2) extends 
-  (<T>() => T extends B ? 1 : 2) 
-    ? true 
-    : false;
-
-// biome-ignore format: readability
-export type IsMemberOf<T, U> = true extends
-  (U extends U ? IsEqual<T, U> : never)
+  (<T>() => T extends B ? 1 : 2)
     ? true
     : false;
 
 // biome-ignore format: readability
-export type Difference<T, U> = T extends T
-  ? (true extends IsMemberOf<T, U> ? never : T)
+export type IsMemberOf<T, U> = true extends 
+  (U extends U ? IsEqual<T, U>: never)
+    ? true
+    : false;
+
+// biome-ignore format: readability
+export type Difference<T, U> = 
+  T extends T
+    ? true extends IsMemberOf<T, U> 
+    ? never : T
   : never;
 
 export type Simplify<T> = T extends AnyFunction
   ? T
   : T extends object
-    ? { [K in keyof T]: T[K] }
+    ? {
+        [K in keyof T]: T[K] extends
+          | Record<PropertyKey, unknown>
+          | readonly unknown[]
+          ? Simplify<T[K]>
+          : T[K];
+      }
     : T;
 
 export type Identity<A, B> =
@@ -33,3 +41,5 @@ export type Identity<A, B> =
         Excess: Difference<A, B>;
         Deficit: Difference<B, A>;
       };
+
+export type OmitProps<T, U extends keyof T> = Omit<T, U>;

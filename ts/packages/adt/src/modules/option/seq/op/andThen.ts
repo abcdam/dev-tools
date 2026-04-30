@@ -1,18 +1,16 @@
 import { _NONE } from "#option/construct.internal.js";
-import type { None, Option } from "../../primitive.js";
-export const andThen: <T1, T2 = T1>(
-  mapFn: (val: T1) => Option<T2>,
-) => (o: Option<T1>) => Option<T2> = mapFn => opt =>
-  opt.exists === true ? mapFn(opt.val) : _NONE;
+import type { Oper, OperA } from "#utility/types/oper.js";
+import type { OperAOption_IO, Option } from "../../primitive.js";
+import type { MapSome } from "./types.internal.js";
+
+type ThenAsync<in T1, out T2> = OperAOption_IO<T1, T2>;
+type Then<in T1, out T2> = MapSome<T1, T2>;
+export const andThen: <T1, T2 = T1>(op: Oper<T1, Option<T2>>) => Then<T1, T2> =
+  op => o =>
+    o.exists === true ? op(o.val) : _NONE;
 
 // TODO ADAPT
 export const andThenAsync: <T1, T2 = T1>(
-  mapFn: (val: T1) => Promise<Option<T2>>,
-) => (opt: Option<T1>) => Promise<Option<T2>> = mapFn => opt =>
-  opt.exists === true ? mapFn(opt.val) : Promise.resolve(_NONE);
-
-// TODO REMOVE
-export const andThenAsync_Fast =
-  <T1, T2 = T1>(mapFn: (val: T1) => Promise<Option<T2>>) =>
-  (opt: Option<T1>): Promise<Option<T2>> =>
-    opt.exists === true ? mapFn(opt.val) : (_NONE as unknown as Promise<None>);
+  op: OperA<T1, Option<T2>>,
+) => ThenAsync<T1, T2> = op => o =>
+  o.exists === true ? op(o.val) : Promise.resolve(_NONE);

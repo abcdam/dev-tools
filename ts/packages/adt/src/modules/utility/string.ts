@@ -1,16 +1,18 @@
-import type { Oper } from "#compose/types.js";
+/** biome-ignore-all lint/suspicious/noExplicitAny: <deferred generic inference alignment> */
+
 import { _NONE } from "#option/construct.internal.js";
 import { type Option, some } from "#option/primitive.js";
+import type { Oper, OperPredicate } from "./types/oper.js";
 
 export const includes_: (
   needle: string,
   startAt?: number,
-) => Oper<string, boolean> = (needle, startAt) => haystack =>
+) => OperPredicate<string> = (needle, startAt) => haystack =>
   haystack.includes(needle, startAt);
 export const includedIn: (
   haystack: string,
   startAt?: number,
-) => Oper<string, boolean> = (haystack, startAt) => needle =>
+) => OperPredicate<string> = (haystack, startAt) => needle =>
   haystack.includes(needle, startAt);
 
 export const toLowerCase_: <T extends string>(str: T) => Lowercase<T> = str =>
@@ -28,7 +30,7 @@ export const toLocaleUpperCase_: <T extends string>(
   opts?: Intl.LocalesArgument,
 ) => Uppercase<T> = (str, opts) => str.toLocaleUpperCase(opts) as any;
 
-export const test_: (re: RegExp) => Oper<string, boolean> = re => target =>
+export const test_: (re: RegExp) => OperPredicate<string> = re => target =>
   re.test(target);
 
 export const startsWith_ =

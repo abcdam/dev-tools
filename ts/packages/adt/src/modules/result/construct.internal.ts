@@ -1,13 +1,13 @@
 import { configureSealedProtos } from "../proto-setup.js";
 import type {
-  BaseResult,
   Err as ErrT,
   NormalizeResult,
   Ok as OkT,
   Result,
+  ResultBase,
 } from "./primitive.js";
 
-export interface ResultProto<R extends BaseResult> {
+export interface ResultProto<R extends ResultBase> {
   readonly ok: R["ok"];
   toJSON(this: R): NormalizeResult<R>;
 }

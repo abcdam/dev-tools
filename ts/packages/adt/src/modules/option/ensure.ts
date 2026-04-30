@@ -1,6 +1,6 @@
 import type { OptionProto } from "./construct.internal.js";
 import { _NONE, _toJSON } from "./construct.internal.js";
-import { type BaseOption, type Option, some } from "./primitive.js";
+import { type Option, type OptionBase, some } from "./primitive.js";
 
 /**
  * #### What:
@@ -17,7 +17,7 @@ import { type BaseOption, type Option, some } from "./primitive.js";
  * - For performance-critical use cases, keep V8 happy by rehydrating option pojos as early as possible
  */
 export function ensureOption<T = unknown>(input: unknown): Option<T>;
-export function ensureOption(input: unknown): BaseOption {
+export function ensureOption(input: unknown): OptionBase {
   if (typeof input !== "object" || input === null) return _NONE;
   const o = input as { exists?: unknown; val?: unknown };
   // biome-ignore format: readability

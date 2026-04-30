@@ -1,63 +1,87 @@
 import type { SafeExecutionError } from "#result/execution.error.js";
-import { mapErrSafely } from "#result/types.internal.js";
-import { tryCatch } from "#utility/throw/tryCatch.js";
+import {
+  contextProvider,
+  type ErrorContext,
+  mapErrSafely,
+} from "#result/result.internal.js";
+import { tryCatch } from "#utility/misc/tryCatch.js";
+import type { Oper, OperAThunk, OperThunk } from "#utility/types/oper.js";
 import { err, ok, type Result } from "../../primitive.js";
 
+type FromTry<out E> = <T>(thunk: OperThunk<T>) => Result<T, E>;
+type FromTryAsync<out E> = <T>(thunkA: OperAThunk<T>) => Promise<Result<T, E>>;
+type FromTryRecover<in out T, out E> = (thunk: OperThunk<T>) => Result<T, E>;
+
+type FromTryRecoverAsync<in out T, out E> = (
+  thunk: OperAThunk<T>,
+) => Promise<Result<T, E>>;
 export const fromTry =
-  <E>(onError: (cause: unknown) => E) =>
-  <T>(fn: () => T): Result<T, E> => {
+  <E>(errOp: Oper<ErrorContext, E>): FromTry<E> =>
+  thunk => {
     try {
-      return ok(fn());
+      return ok(thunk());
     } catch (cause) {
-      return err(onError(cause));
+      return err(errOp(contextProvider(cause)));
     }
   };
 export const fromTrySafe =
-  <E>(onError: (cause: unknown) => E) =>
-  <T>(fn: () => T): Result<T, E | SafeExecutionError> => {
+  <E>(errOp: Oper<ErrorContext, E>): FromTry<E | SafeExecutionError> =>
+  thunk => {
     try {
-      return ok(fn());
+      return ok(thunk());
     } catch (cause) {
-      return tryCatch(() => err(onError(cause)), mapErrSafely(cause));
+      return tryCatch(
+        () => err(errOp(contextProvider(cause))),
+        mapErrSafely(cause),
+      );
     }
   };
 export const fromTryRecover =
-  <T>(onRecover: (cause: unknown) => T) =>
-  (fn: () => T): Result<T, SafeExecutionError> => {
+  <T>(errOp: Oper<ErrorContext, T>): FromTryRecover<T, SafeExecutionError> =>
+  thunk => {
     try {
-      return ok(fn());
+      return ok(thunk());
     } catch (cause) {
-      return tryCatch(() => ok(onRecover(cause)), mapErrSafely(cause));
+      return tryCatch(
+        () => ok(errOp(contextProvider(cause))),
+        mapErrSafely(cause),
+      );
     }
   };
+
 export const fromTryAsync =
-  <E>(onError: (cause: unknown) => E) =>
-  async <T>(fn: () => Promise<T>): Promise<Result<T, E>> => {
+  <E>(errOp: Oper<ErrorContext, E>): FromTryAsync<E> =>
+  async thunkA => {
     try {
-      return ok(await fn());
+      return ok(await thunkA());
     } catch (cause) {
-      return err(onError(cause));
+      return err(errOp(contextProvider(cause)));
+    }
+  };
+export const fromTrySafeAsync =
+  <E>(errOp: Oper<ErrorContext, E>): FromTryAsync<E | SafeExecutionError> =>
+  async thunkA => {
+    try {
+      return ok(await thunkA());
+    } catch (cause) {
+      return tryCatch(
+        () => err(errOp(contextProvider(cause))),
+        mapErrSafely(cause),
+      );
     }
   };
 
-export const fromTryAsyncSafe =
-  <E>(onError: (cause: unknown) => E) =>
-  async <T>(
-    fn: () => Promise<T>,
-  ): Promise<Result<T, E | SafeExecutionError>> => {
+export const fromTryRecoverAsync =
+  <T>(
+    errOp: Oper<ErrorContext, T>,
+  ): FromTryRecoverAsync<T, SafeExecutionError> =>
+  async thunkA => {
     try {
-      return ok(await fn());
+      return ok(await thunkA());
     } catch (cause) {
-      return tryCatch(() => err(onError(cause)), mapErrSafely(cause));
-    }
-  };
-
-export const fromTryAsyncRecover =
-  <T>(onRecover: (cause: unknown) => T) =>
-  async (fn: () => T): Promise<Result<T, SafeExecutionError>> => {
-    try {
-      return ok(await fn());
-    } catch (cause) {
-      return tryCatch(() => ok(onRecover(cause)), mapErrSafely(cause));
+      return tryCatch(
+        () => ok(errOp(contextProvider(cause))),
+        mapErrSafely(cause),
+      );
     }
   };

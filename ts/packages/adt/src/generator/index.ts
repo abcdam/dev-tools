@@ -103,7 +103,7 @@ const defineResultSpec = (
     defineSpec(
       fnSymbol,
       [adtSymbolDef.okType, adtSymbolDef.errType],
-      { adt: "result", kind, primary, secondary, baseType: "BaseResult" },
+      { adt: "result", kind, primary, secondary, baseType: "ResultBase" },
       `Result<UNION_PLACEHOLDER, UNION_ERR_PLACEHOLDER>`,
       buildOutPath("result", fnSymbol, kind, namespace),
     ),
@@ -117,7 +117,7 @@ const defineOptionSpec = (
     defineSpec(
       fnSymbol,
       [adtSymbolDef.okType],
-      { adt: "option", kind, primary, baseType: "BaseOption" },
+      { adt: "option", kind, primary, baseType: "OptionBase" },
       "Option<UNION_PLACEHOLDER>",
       buildOutPath("option", fnSymbol, kind, namespace),
     ),
@@ -149,7 +149,7 @@ const getGuardsTuple = (n: number, errFallback?: string) => {
   const guards = Array.from(
     { length: n },
     (_, i) =>
-      `g${i + 1}: GuardFn<${getExclude(i + 1)}, ${PRIM_DEF.subTy}${i + 1}>`,
+      `g${i + 1}: OperGuard<${getExclude(i + 1)}, ${PRIM_DEF.subTy}${i + 1}>`,
   );
   return `...guards${errFallback ? "WithErrFallback" : ""}: [${guards.join(", ")}${errFallback ? `,${errFallback}` : ""}]`;
 };
@@ -276,7 +276,7 @@ function genCatchAllOverload(spec: Spec): string {
   const catchAllReturnType = spec.returnDef
     .replace("UNION_PLACEHOLDER", adtSymbolDef.okType)
     .replace("UNION_ERR_PLACEHOLDER", errGenericOutput);
-  const predicateFn = `PredicateFn<${adtSymbolDef.okType}>`;
+  const predicateFn = `OperPredicate<${adtSymbolDef.okType}>`;
   const fnListSym = `predicates${hasFallback ? "WithErrFallback" : ""}`;
   const predicateArg = `...${fnListSym}: [${predicateFn},...${predicateFn}[]${
     hasFallback
@@ -321,11 +321,11 @@ function buildFileContent(outPath: string, chunks: string[]): string {
   const isFilter = outPath.includes("/filter");
   const imports = [
     isResult
-      ? `import { ${isFilter ? "" : "ok,"} err, type Result,type BaseResult  } from "#result/primitive.js";`
+      ? `import { ${isFilter ? "" : "ok,"} err, type Result,type ResultBase  } from "#result/primitive.js";`
       : `${isFilter ? "" : 'import { some } from "#option/primitive.js";'}
-      import type { Option, BaseOption } from "#option/primitive.js";
+      import type { Option, OptionBase } from "#option/primitive.js";
       import { _NONE } from "#option/construct.internal.js";`,
-    `import type { GuardFn, PredicateFn } from "#utility/guard/index.js";`,
+    `import type { OperGuard, OperPredicate } from "#utility/types/oper.js";`,
   ].join("\n");
 
   return `${[

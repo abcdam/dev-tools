@@ -1,10 +1,16 @@
+import type { Oper } from "#utility/types/oper.js";
 import type { Result } from "../../primitive.js";
 
+type MatchOr<in T, out Out> = <E>(r: Result<T, E>) => Out;
+type MatchElse<in T, in E, out Out> = Oper<Result<T, E>, Out>;
 export const matchOr =
-  <T, RO, RE = RO>(onOk: (okInner: T) => RO, errValue: RE) =>
-  <E>(result: Result<T, E>): RO | RE =>
-    result.ok === true ? onOk(result.val) : errValue;
+  <T, RO, RE>(okOp: Oper<T, RO>, default_: RE): MatchOr<T, RO | RE> =>
+  r =>
+    r.ok === true ? okOp(r.val) : default_;
 export const matchElse =
-  <T, E, RO, RE = RO>(onOk: (okInner: T) => RO, onErr: (errInner: E) => RE) =>
-  (result: Result<T, E>): RO | RE =>
-    result.ok === true ? onOk(result.val) : onErr(result.err);
+  <T, E, RO, RE>(
+    okOp: Oper<T, RO>,
+    errOp: Oper<E, RE>,
+  ): MatchElse<T, E, RO | RE> =>
+  r =>
+    r.ok === true ? okOp(r.val) : errOp(r.err);

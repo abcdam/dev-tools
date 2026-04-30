@@ -1,15 +1,14 @@
+import type { OperGuard, OperPredicate } from "#compose/index.js";
 import { _NONE } from "#option/construct.internal.js";
-import { type Option, some } from "../../primitive.js";
+import { type OperOption_O, type Option, some } from "../../primitive.js";
 
 export function find<T, U extends T>(
-  predicate: (item: T) => item is U,
-): (list: T[]) => Option<U>;
+  guard: OperGuard<T, U>,
+): OperOption_O<T[], U>;
 
-export function find<T>(
-  predicate: (item: T) => boolean,
-): (list: T[]) => Option<T>;
+export function find<T>(predicate: OperPredicate<T>): OperOption_O<T[], T>;
 
-export function find<T>(predicate: (item: T) => boolean) {
+export function find<T>(predicate: OperPredicate<T>) {
   return (list: T[]) => {
     const limit = list.length;
     for (let i = 0; i < limit; i++) {
@@ -28,13 +27,13 @@ const _trafoList = <T, U>(collection: T[], mapFn: MapFn<T, U>): U[] => {
   return mapped;
 };
 
-export function collect<T, U>(
-  mapFn: MapFn<T, U>,
-): (collection: Iterable<T> | T[]) => Option<[U, ...U[]]> {
-  return (collection: Iterable<T> | T[]): Option<[U, ...U[]]> => {
+export const collect =
+  <T, U>(
+    mapFn: (item: T, index: number) => U,
+  ): OperOption_O<Iterable<T> | T[], [U, ...U[]]> =>
+  collection => {
     const opts = Array.isArray(collection)
       ? _trafoList(collection, mapFn)
       : Array.from<T, U>(collection, mapFn);
     return opts.length === 0 ? _NONE : (some(opts) as Option<[U, ...U[]]>);
   };
-}

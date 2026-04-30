@@ -1,19 +1,19 @@
-import type { BaseResult, InferErr, InferOk } from "#result/primitive.js";
+import type { InferErr, InferOk, ResultBase } from "#result/primitive.js";
 
 type BaseReturnSplit = { oks: unknown[]; errs: unknown[] };
 
-const _splitList = (results: BaseResult[]): BaseReturnSplit => {
+const _splitList = (results: ResultBase[]): BaseReturnSplit => {
   const oks = [];
   const errs = [];
   const limit = results.length;
   for (let i = 0; i < limit; i++) {
-    const item = results[i] as BaseResult;
+    const item = results[i] as ResultBase;
     if (item.ok) oks.push(item.val);
     else errs.push(item.err);
   }
   return { oks, errs };
 };
-const _splitIter = (results: Iterable<BaseResult>): BaseReturnSplit => {
+const _splitIter = (results: Iterable<ResultBase>): BaseReturnSplit => {
   const oks = [];
   const errs = [];
 
@@ -23,14 +23,14 @@ const _splitIter = (results: Iterable<BaseResult>): BaseReturnSplit => {
 
   return { oks, errs };
 };
-export function split<const R extends readonly BaseResult[]>(
+export function split<const R extends readonly ResultBase[]>(
   results: R,
 ): { oks: InferOk<R[number]>[]; errs: InferErr<R[number]>[] };
-export function split<R extends BaseResult>(
+export function split<R extends ResultBase>(
   results: Iterable<R>,
 ): { oks: InferOk<R>[]; errs: InferErr<R>[] };
 export function split(
-  results: BaseResult[] | Iterable<BaseResult>,
+  results: ResultBase[] | Iterable<ResultBase>,
 ): BaseReturnSplit {
   return Array.isArray(results) ? _splitList(results) : _splitIter(results);
 }

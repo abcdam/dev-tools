@@ -4,19 +4,19 @@
 
 // biome-ignore-all assist/source/organizeImports: haltsmaul
 
-import { err, type Result, type BaseResult } from "#result/primitive.js";
-import type { GuardFn, PredicateFn } from "#utility/guard/index.js";
+import { err, type Result, type ResultBase } from "#result/primitive.js";
+import type { OperGuard, OperPredicate } from "#utility/types/oper.js";
 
 export function filterOr<T, E1, E2, U1 extends T>(
   result: Result<T, E1>,
-  ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errValue: E2]
+  ...guardsWithErrFallback: [g1: OperGuard<T, U1>, errValue: E2]
 ): Result<U1, E1 | E2>;
 
 export function filterOr<T, E1, E2, U1 extends T, U2 extends Exclude<T, U1>>(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
     errValue: E2,
   ]
 ): Result<U1 | U2, E1 | E2>;
@@ -31,9 +31,9 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3, E1 | E2>;
@@ -49,10 +49,10 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3 | U4, E1 | E2>;
@@ -69,11 +69,11 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5, E1 | E2>;
@@ -91,12 +91,12 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6, E1 | E2>;
@@ -115,13 +115,13 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
-    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7, E1 | E2>;
@@ -141,14 +141,14 @@ export function filterOr<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
-    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
-    g8: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g8: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
     errValue: E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7 | U8, E1 | E2>;
@@ -156,13 +156,13 @@ export function filterOr<
 export function filterOr<T, E1, E2>(
   result: Result<T, E1>,
   ...predicatesWithErrFallback: [
-    PredicateFn<T>,
-    ...PredicateFn<T>[],
+    OperPredicate<T>,
+    ...OperPredicate<T>[],
     errValue: E2,
   ]
 ): Result<T, E1 | E2>;
 
-export function filterOr(result: BaseResult, ...fnsWithErrFallback: any[]) {
+export function filterOr(result: ResultBase, ...fnsWithErrFallback: any[]) {
   if (result.ok === false) return result;
   const v = result.val;
   const errValue = fnsWithErrFallback.pop();
@@ -173,14 +173,14 @@ export function filterOr(result: BaseResult, ...fnsWithErrFallback: any[]) {
 
 export function filterElse<T, E1, E2, U1 extends T>(
   result: Result<T, E1>,
-  ...guardsWithErrFallback: [g1: GuardFn<T, U1>, errFn: (data: T) => E2]
+  ...guardsWithErrFallback: [g1: OperGuard<T, U1>, errFn: (data: T) => E2]
 ): Result<U1, E1 | E2>;
 
 export function filterElse<T, E1, E2, U1 extends T, U2 extends Exclude<T, U1>>(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2, E1 | E2>;
@@ -195,9 +195,9 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3, E1 | E2>;
@@ -213,10 +213,10 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3 | U4, E1 | E2>;
@@ -233,11 +233,11 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5, E1 | E2>;
@@ -255,12 +255,12 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6, E1 | E2>;
@@ -279,13 +279,13 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
-    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7, E1 | E2>;
@@ -305,14 +305,14 @@ export function filterElse<
 >(
   result: Result<T, E1>,
   ...guardsWithErrFallback: [
-    g1: GuardFn<T, U1>,
-    g2: GuardFn<Exclude<T, U1>, U2>,
-    g3: GuardFn<Exclude<T, U1 | U2>, U3>,
-    g4: GuardFn<Exclude<T, U1 | U2 | U3>, U4>,
-    g5: GuardFn<Exclude<T, U1 | U2 | U3 | U4>, U5>,
-    g6: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
-    g7: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
-    g8: GuardFn<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
+    g1: OperGuard<T, U1>,
+    g2: OperGuard<Exclude<T, U1>, U2>,
+    g3: OperGuard<Exclude<T, U1 | U2>, U3>,
+    g4: OperGuard<Exclude<T, U1 | U2 | U3>, U4>,
+    g5: OperGuard<Exclude<T, U1 | U2 | U3 | U4>, U5>,
+    g6: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5>, U6>,
+    g7: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6>, U7>,
+    g8: OperGuard<Exclude<T, U1 | U2 | U3 | U4 | U5 | U6 | U7>, U8>,
     errFn: (data: T) => E2,
   ]
 ): Result<U1 | U2 | U3 | U4 | U5 | U6 | U7 | U8, E1 | E2>;
@@ -320,13 +320,13 @@ export function filterElse<
 export function filterElse<T, E1, E2>(
   result: Result<T, E1>,
   ...predicatesWithErrFallback: [
-    PredicateFn<T>,
-    ...PredicateFn<T>[],
+    OperPredicate<T>,
+    ...OperPredicate<T>[],
     errFn: (data: T) => E2,
   ]
 ): Result<T, E1 | E2>;
 
-export function filterElse(result: BaseResult, ...fnsWithErrFallback: any[]) {
+export function filterElse(result: ResultBase, ...fnsWithErrFallback: any[]) {
   if (result.ok === false) return result;
   const v = result.val;
   const errFn = fnsWithErrFallback.pop();

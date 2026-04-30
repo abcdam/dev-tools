@@ -1,5 +1,5 @@
-import type { Expect, Identity } from "../types.ts";
-import type { isRecordLike } from "./guard.ts";
+import type { Expect, Identity } from "#utility/types/general.ts";
+import type { isList, isNotListEmpty, isRecordLike } from "./index.ts";
 
 /*
  * Quick tests

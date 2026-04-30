@@ -1,159 +1,160 @@
-import { assertOpsArgs, type UnknownFn } from "./internal.js";
-import type { Oper } from "./types.js";
+import type { OperUnknown } from "#intern/types";
+import type { Oper } from "#utility/types/oper.js";
+import { assertOpsArgs } from "./internal.js";
 
-export function oper<A, B>(f1: Oper<A, B>): Oper<A, B>;
-export function oper<A, B, C>(f1: Oper<A, B>, f2: Oper<B, C>): Oper<A, C>;
+export function oper<A, B>(op1: Oper<A, B>): Oper<A, B>;
+export function oper<A, B, C>(op1: Oper<A, B>, op2: Oper<B, C>): Oper<A, C>;
 
 export function oper<A, B, C, D>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
 ): Oper<A, D>;
 
 export function oper<A, B, C, D, E>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
 ): Oper<A, E>;
 
 export function oper<A, B, C, D, E, F>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
 ): Oper<A, F>;
 
 export function oper<A, B, C, D, E, F, G>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
 ): Oper<A, G>;
 
 export function oper<A, B, C, D, E, F, G, H>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
 ): Oper<A, H>;
 
 export function oper<A, B, C, D, E, F, G, H, I>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
+  op8: Oper<H, I>,
 ): Oper<A, I>;
 
 export function oper<A, B, C, D, E, F, G, H, I, J>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
+  op8: Oper<H, I>,
+  op9: Oper<I, J>,
 ): Oper<A, J>;
 
 export function oper<A, B, C, D, E, F, G, H, I, J, K>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
+  op8: Oper<H, I>,
+  op9: Oper<I, J>,
+  op10: Oper<J, K>,
 ): Oper<A, K>;
 
 export function oper<A, B, C, D, E, F, G, H, I, J, K, L>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
-  f11: Oper<K, L>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
+  op8: Oper<H, I>,
+  op9: Oper<I, J>,
+  op10: Oper<J, K>,
+  op11: Oper<K, L>,
 ): Oper<A, L>;
 
 export function oper<A, B, C, D, E, F, G, H, I, J, K, L, M>(
-  f1: Oper<A, B>,
-  f2: Oper<B, C>,
-  f3: Oper<C, D>,
-  f4: Oper<D, E>,
-  f5: Oper<E, F>,
-  f6: Oper<F, G>,
-  f7: Oper<G, H>,
-  f8: Oper<H, I>,
-  f9: Oper<I, J>,
-  f10: Oper<J, K>,
-  f11: Oper<K, L>,
-  f12: Oper<L, M>,
+  op1: Oper<A, B>,
+  op2: Oper<B, C>,
+  op3: Oper<C, D>,
+  op4: Oper<D, E>,
+  op5: Oper<E, F>,
+  op6: Oper<F, G>,
+  op7: Oper<G, H>,
+  op8: Oper<H, I>,
+  op9: Oper<I, J>,
+  op10: Oper<J, K>,
+  op11: Oper<K, L>,
+  op12: Oper<L, M>,
 ): Oper<A, M>;
 
-export function oper(...ops: UnknownFn[]): UnknownFn {
+export function oper(...ops: OperUnknown[]): OperUnknown {
   const opCount = ops.length;
   if (!IS_PROD) assertOpsArgs("oper", ops, 1, opCount);
 
-  const f1 = ops[0] as UnknownFn;
+  const op1 = ops[0] as OperUnknown;
 
   if (opCount === 1) {
-    const op1: UnknownFn = v => f1(v);
-    return op1;
+    const arity1: OperUnknown = v => op1(v);
+    return arity1;
   }
-  const f2 = ops[1] as UnknownFn;
+  const op2 = ops[1] as OperUnknown;
   if (opCount === 2) {
-    const op2: UnknownFn = v => f2(f1(v));
-    return op2;
+    const arity2: OperUnknown = v => op2(op1(v));
+    return arity2;
   }
 
-  const f3 = ops[2] as UnknownFn;
+  const op3 = ops[2] as OperUnknown;
   if (opCount === 3) {
-    const op3: UnknownFn = v => f3(f2(f1(v)));
-    return op3;
+    const arity3: OperUnknown = v => op3(op2(op1(v)));
+    return arity3;
   }
 
-  const f4 = ops[3] as UnknownFn;
+  const op4 = ops[3] as OperUnknown;
   if (opCount === 4) {
-    const op4: UnknownFn = v => f4(f3(f2(f1(v))));
-    return op4;
+    const arity4: OperUnknown = v => op4(op3(op2(op1(v))));
+    return arity4;
   }
 
-  const f5 = ops[4] as UnknownFn;
+  const op5 = ops[4] as OperUnknown;
   if (opCount === 5) {
-    const op5: UnknownFn = v => f5(f4(f3(f2(f1(v)))));
-    return op5;
+    const arity5: OperUnknown = v => op5(op4(op3(op2(op1(v)))));
+    return arity5;
   }
 
-  const f6 = ops[5] as UnknownFn;
+  const op6 = ops[5] as OperUnknown;
 
   if (opCount === 6) {
-    const op6: UnknownFn = v => f6(f5(f4(f3(f2(f1(v))))));
-    return op6;
+    const arity6: OperUnknown = v => op6(op5(op4(op3(op2(op1(v))))));
+    return arity6;
   }
-  const f7 = ops[6] as UnknownFn;
-  const arity7Plus: UnknownFn = v => {
-    const first7 = f7(f6(f5(f4(f3(f2(f1(v)))))));
+  const op7 = ops[6] as OperUnknown;
+  const arity7Plus: OperUnknown = v => {
+    const first7 = op7(op6(op5(op4(op3(op2(op1(v)))))));
     let acc = first7;
-    for (let i = 7; i < opCount; i++) acc = (ops[i] as UnknownFn)(acc);
+    for (let i = 7; i < opCount; i++) acc = (ops[i] as OperUnknown)(acc);
     return acc;
   };
 
